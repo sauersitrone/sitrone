@@ -1,0 +1,24 @@
+interactive chat
+interaktive sache, wo die Leute miteinander komunizieren könnte
+conversationals tools
+men-to-men
+medic care database
+look for a github repo for medical db design. the design muss be a medicament control db e.g whe de patient muss take the medicament. 
+medikament scannen
+medikament suchen (externe db)
+
+https://github.com/Dipak-Ahirav/dog-avatar-login-animation
+https://github.com/andrea-liu87/Capstone-Project
+https://github.com/limqiying/potato-woman?tab=readme-ov-file
+https://github.com/snumrl/InteractiveAnimation
+
+https://gist.github.com/win3zz/e2e8f9d43035d8378e35065ec4c5dd97
+https://www.live2d.com/en/learn/sample/
+
+https://www.adobe.com/de/products/character-animator.html
+https://www.canva.com/create/cartoons/
+https://zzz.dog/
+https://uusveeb.ee/mang/my-pou-virtual-pet/
+
+https://vaadin.com/forum/t/vaadin-threejs/165939/2
+https://github.com/Artur-/threejs-vaadin?tab=readme-ov-file
