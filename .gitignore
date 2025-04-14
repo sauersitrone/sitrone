@@ -1,4 +1,5 @@
-﻿/target/
+﻿/media/
+/target/
 .idea/
 .settings
 .project
