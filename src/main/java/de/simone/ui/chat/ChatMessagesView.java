@@ -51,13 +51,13 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
         tabs.setOrientation(Orientation.VERTICAL);
         tabs.addClassNames(Flex.GROW, Flex.SHRINK, Overflow.HIDDEN);
         currentUser = SecurityUtils.getLoggedUser();
-        messageInput = new MessageInput(e-> sendMessage(e.getValue()));
+        messageInput = new MessageInput(e -> sendMessage(e.getValue()));
 
         messageList = new MessageList();
         messageList.setSizeFull();
 
         VoiceRecognition voiceRecognition = new VoiceRecognition();
-        voiceRecognition.addResultListener(e-> sendMessage(e.getSpeech()));
+        voiceRecognition.addResultListener(e -> sendMessage(e.getSpeech()));
         HorizontalLayout inputLayout = UIUtils.getCompactHorizontalLayout(true, messageInput, voiceRecognition);
         inputLayout.setFlexGrow(1, messageInput);
 
@@ -151,7 +151,7 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
     private void sendMessage(ChatGroup to, String message, boolean noRepeat) {
         ChatMessage messageOld = ChatMessage.find("id = ?1", Sort.descending("id"), to.id).firstResult();
         boolean send = true;
-        if (noRepeat &&  messageOld != null)
+        if (noRepeat && messageOld != null)
             send = !messageOld.message.equals(message);
 
         if (!send)

@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Unit;
@@ -63,12 +62,12 @@ public class MiscellaneousService {
 
   // mother fu**er
 
-  public String uploadFile(@QueryParam String folder, String base64Data) {
+  public String uploadFile(String folder, String base64Data) {
     String fileN = saveMimeDataToFile(folder, base64Data);
     return "File uploaded " + fileN;
   }
 
-  public Response downloadFile(@QueryParam String filePath) {
+  public Response downloadFile(String filePath) {
     File fileDownload = new File(filePath);
     String fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
     Response.ResponseBuilder response = Response.ok(fileDownload);

@@ -162,7 +162,6 @@ class VoiceRecognition extends LitElement {
             <button class="clear-speech" @click="${this.clearSpeech}">Clear Speech</button>
           `
         : ''}
-      <p>${this.speech}</p>
     `;
   }
 
