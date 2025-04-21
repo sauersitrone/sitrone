@@ -4,24 +4,20 @@ import dev.langchain4j.service.*;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.enterprise.context.*;
 
-@SessionScoped
+@ApplicationScoped
 @RegisterAiService
 // @RegisterAiService(
 //         chatMemoryProviderSupplier = TChatMemoryProvider.class,
 //         tools = Tools.class)
 public interface AiService {
-
-    @SystemMessage("You are a professional poet.")
-    @UserMessage("""
-                Write a poem about {topic}. The poem should be {lines} lines long. Then send this poem by email.
-            """)
-    String writeAPoem(@V("topic") String topic, @V("lines") int lines);
-
     
 //     @SystemMessage("You are a professional poet.")
 //     String chat(@MemoryId long memoryId, @UserMessage String userMessage);
 
-    @SystemMessage("You are a professional poet.")
+    @SystemMessage("""
+        Tu eres una mascota virtual. te llamas {tamagotchi.name}. Tu trabajo es conversar amenamente con una persona mayor. Tu eres amable pero conciso
+        """)
+    
     String chat( String userMessage);
 
     @SystemMessage("""

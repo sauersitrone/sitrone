@@ -3,13 +3,9 @@ package de.simone.ui.chat;
 import java.time.*;
 import java.util.*;
 
-import org.vaadin.lineawesome.LineAwesomeIcon;
-
 import com.vaadin.flow.component.*;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.messages.*;
-import com.vaadin.flow.component.messages.MessageInput.*;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.tabs.*;
@@ -26,9 +22,9 @@ import jakarta.annotation.security.*;
 import jakarta.inject.*;
 import jakarta.transaction.*;
 
-@RolesAllowed({ "Zitrone.master", "ChatMessages" })
-@Route(value = "ChatMessages", layout = MainLayout.class)
-public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObserver, PropertyChangeListener {
+@RolesAllowed({ "Zitrone.master", "P2PMessagesView" })
+@Route(value = "P2PMessagesView", layout = MainLayout.class)
+public class P2PMessagesView extends HorizontalLayout implements BeforeEnterObserver, PropertyChangeListener {
 
     private ChatInfo currentChat;
     private Tabs tabs;
@@ -41,9 +37,9 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
     protected MessageList messageList;
 
     @Inject
-    protected ChatsService chatsService;
+    protected P2PChatsService p2pChatsService;
 
-    public ChatMessagesView() {
+    public P2PMessagesView() {
         addClassNames(Width.FULL, Display.FLEX, Flex.AUTO);
         setSpacing(false);
         timer = UIUtils.getTimer(this, 2);
@@ -86,10 +82,10 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
         currentChat.resetUnread();
 
         List<MessageListItem> items = new ArrayList<>();
-        List<ChatMessage> chatMessages = chatsService.getChatMessages(currentUser.id);
-        for (ChatMessage message : chatMessages) {
+        List<P2PMessage> chatMessages = p2pChatsService.getMessages(currentUser.id);
+        for (P2PMessage message : chatMessages) {
             message.seenBy.add(currentUser.id);
-            ChatMessage.getEntityManager().merge(message);
+            P2PMessage.getEntityManager().merge(message);
 
             LocalDateTime localDateTime = message.getCreatedAt();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
@@ -111,8 +107,8 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
     }
 
     private void buildChatMembers() {
-        List<ChatGroup> groups = chatsService.getChatGroups();
-        for (ChatGroup group : groups) {
+        List<P2PGroup> groups = p2pChatsService.getChatGroups();
+        for (P2PGroup group : groups) {
 
             // create tabs according to topics
             ChatInfo chat = new ChatInfo(group, group.getUnreadMessages(currentUser.id));
@@ -148,8 +144,8 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
      * @param noRepeat - true will not send the message if the last message is equal
      *                 to this message
      */
-    private void sendMessage(ChatGroup to, String message, boolean noRepeat) {
-        ChatMessage messageOld = ChatMessage.find("id = ?1", Sort.descending("id"), to.id).firstResult();
+    private void sendMessage(P2PGroup to, String message, boolean noRepeat) {
+        P2PMessage messageOld = P2PMessage.find("id = ?1", Sort.descending("id"), to.id).firstResult();
         boolean send = true;
         if (noRepeat && messageOld != null)
             send = !messageOld.message.equals(message);
@@ -157,14 +153,14 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
         if (!send)
             return;
 
-        ChatMessage message2 = new ChatMessage();
+        P2PMessage message2 = new P2PMessage();
         message2.senderId = currentUser.id;
         message2.senderImage = currentUser.avatar;
         message2.senderName = currentUser.getFullName();
         message2.message = message;
         message2.reciverId = to.id;
 
-        chatsService.save(message2);
+        p2pChatsService.save(message2);
         updateMessages();
     }
 
@@ -189,7 +185,7 @@ public class ChatMessagesView extends HorizontalLayout implements BeforeEnterObs
 
     @Override
     public void propertyChange(PropertyChangeEvent event) {
-        List<ChatMessage> chatMessagesNew = chatsService.getChatMessages(currentUser.id);
+        List<P2PMessage> chatMessagesNew = p2pChatsService.getMessages(currentUser.id);
         ChatInfo chatInfo = ((ChatTab) tabs.getSelectedTab()).getChatInfo();
         if (chatInfo.messageCount != chatMessagesNew.size()) {
             updateMessages();

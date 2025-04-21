@@ -1,11 +1,8 @@
-interactive chat
-interaktive sache, wo die Leute miteinander komunizieren könnte
-conversationals tools
-men-to-men
-medic care database
-look for a github repo for medical db design. the design muss be a medicament control db e.g whe de patient muss take the medicament. 
-medikament scannen
-medikament suchen (externe db)
+todos
+-------------------------------
+add tags to the adult. the tagas are description or personality trails that are incorporated in @systemmessage to config the Tamagotchi
+add the variables to the systemmesage from, adult, tamagotschi status etc
+migrate to postgredb
 
 https://github.com/Dipak-Ahirav/dog-avatar-login-animation
 https://github.com/andrea-liu87/Capstone-Project

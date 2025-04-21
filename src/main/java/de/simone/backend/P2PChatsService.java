@@ -10,28 +10,28 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
-public class ChatsService extends TAService<ChatMessage> {
+public class P2PChatsService extends TAService<P2PMessage> {
 
-    public ChatsService() {
-        super(ChatMessage.class);
+    public P2PChatsService() {
+        super(P2PMessage.class);
     }
 
     @Override
-    public ChatMessage get(Long id) throws WebApplicationException {
+    public P2PMessage get(Long id) throws WebApplicationException {
         return getImpl(id);
     }
 
-    public List<ChatMessage> getChatMessages(Long reciverId) {
-        List<ChatMessage> list =   ChatMessage.list("reciverId = ?1 OR senderId = ?2", reciverId, reciverId);
+    public List<P2PMessage> getMessages(Long reciverId) {
+        List<P2PMessage> list =   P2PMessage.list("reciverId = ?1 OR senderId = ?2", reciverId, reciverId);
         return list;
       }
     
 
-    public List<ChatGroup> getChatGroups() {
-        List<ChatGroup> groups = new ArrayList<>();
+    public List<P2PGroup> getChatGroups() {
+        List<P2PGroup> groups = new ArrayList<>();
         List<Adult> adults = Adult.listAll();
         for (Adult adult : adults) {
-            ChatGroup group = new ChatGroup();
+            P2PGroup group = new P2PGroup();
             group.image = adult.avatar;
             group.name = adult.getFullName();
             group.id = adult.id;
@@ -41,7 +41,7 @@ public class ChatsService extends TAService<ChatMessage> {
     }
 
     public void sendMessage(String messagekey, Long reciverId, Object... parms) {
-        ChatMessage chatMessage = new ChatMessage();
+        P2PMessage chatMessage = new P2PMessage();
         chatMessage.senderId = -1L;
         chatMessage.senderImage = UIUtils.BOT_AVATAR;
         chatMessage.senderName = UIUtils.BOT_NAME;
@@ -61,7 +61,7 @@ public class ChatsService extends TAService<ChatMessage> {
     }
 
     @Override
-    public Response save(ChatMessage entity) {
+    public Response save(P2PMessage entity) {
         return saveImpl(entity);
     }
 }

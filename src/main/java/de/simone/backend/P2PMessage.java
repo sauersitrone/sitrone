@@ -13,8 +13,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "ChatMessages")
-public class ChatMessage extends TAEntity {
+@Table(name = "P2PMessages")
+public class P2PMessage extends TAEntity {
 
     @ElementCollection
     public Set<Long> seenBy = new HashSet<>(); 

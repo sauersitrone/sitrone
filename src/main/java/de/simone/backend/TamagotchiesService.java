@@ -1,12 +1,9 @@
 package de.simone.backend;
 
-import de.simone.SecurityUtils;
-import io.quarkus.panache.common.Parameters;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
-import java.util.List;
+import jakarta.enterprise.context.*;
+import jakarta.transaction.*;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.*;
 
 @ApplicationScoped
 public class TamagotchiesService extends TAService<Tamagotchi> {

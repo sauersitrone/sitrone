@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "ChatGroups")
-public class ChatGroup extends TAEntity {
+@Table(name = "P2PGroups")
+public class P2PGroup extends TAEntity {
 
   @NotBlank
   @NotEmpty

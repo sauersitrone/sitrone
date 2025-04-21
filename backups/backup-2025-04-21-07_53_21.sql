@@ -133,219 +133,67 @@ INSERT INTO `AuditLogs` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `ChatGroup_members`
+-- Table structure for table `ChatLogs`
 --
 
-DROP TABLE IF EXISTS `ChatGroup_members`;
+DROP TABLE IF EXISTS `ChatLogs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatGroup_members` (
-  `ChatGroup_id` bigint(20) NOT NULL,
-  `members` bigint(20) DEFAULT NULL,
-  KEY `FKq6jtbuxaf8r2tui40ye8o7ebp` (`ChatGroup_id`),
-  CONSTRAINT `FKq6jtbuxaf8r2tui40ye8o7ebp` FOREIGN KEY (`ChatGroup_id`) REFERENCES `ChatGroups` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ChatGroup_members`
---
-
-LOCK TABLES `ChatGroup_members` WRITE;
-/*!40000 ALTER TABLE `ChatGroup_members` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChatGroup_members` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ChatGroup_seenBy`
---
-
-DROP TABLE IF EXISTS `ChatGroup_seenBy`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatGroup_seenBy` (
-  `ChatGroup_id` bigint(20) NOT NULL,
-  `seenBy` bigint(20) DEFAULT NULL,
-  KEY `FKrankgehywnhx78t6a1dnyr4gy` (`ChatGroup_id`),
-  CONSTRAINT `FKrankgehywnhx78t6a1dnyr4gy` FOREIGN KEY (`ChatGroup_id`) REFERENCES `ChatGroups` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ChatGroup_seenBy`
---
-
-LOCK TABLES `ChatGroup_seenBy` WRITE;
-/*!40000 ALTER TABLE `ChatGroup_seenBy` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChatGroup_seenBy` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ChatGroups`
---
-
-DROP TABLE IF EXISTS `ChatGroups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatGroups` (
+CREATE TABLE `ChatLogs` (
   `id` bigint(20) NOT NULL,
   `createdAt` datetime(6) DEFAULT NULL,
   `ownerId` bigint(20) DEFAULT NULL,
   `updatedAt` datetime(6) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `lastMessage` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ChatGroups`
---
-
-LOCK TABLES `ChatGroups` WRITE;
-/*!40000 ALTER TABLE `ChatGroups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChatGroups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ChatGroups_members`
---
-
-DROP TABLE IF EXISTS `ChatGroups_members`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatGroups_members` (
-  `ChatGroup_id` bigint(20) NOT NULL,
-  `members` bigint(20) DEFAULT NULL,
-  KEY `FK93svsiy87qa0ucc9ls74jjfnx` (`ChatGroup_id`),
-  CONSTRAINT `FK93svsiy87qa0ucc9ls74jjfnx` FOREIGN KEY (`ChatGroup_id`) REFERENCES `ChatGroups` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ChatGroups_members`
---
-
-LOCK TABLES `ChatGroups_members` WRITE;
-/*!40000 ALTER TABLE `ChatGroups_members` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChatGroups_members` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ChatGroups_seenBy`
---
-
-DROP TABLE IF EXISTS `ChatGroups_seenBy`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatGroups_seenBy` (
-  `ChatGroup_id` bigint(20) NOT NULL,
-  `seenBy` bigint(20) DEFAULT NULL,
-  KEY `FKoqpkaa4ejwl4bei8fhfrmavbt` (`ChatGroup_id`),
-  CONSTRAINT `FKoqpkaa4ejwl4bei8fhfrmavbt` FOREIGN KEY (`ChatGroup_id`) REFERENCES `ChatGroups` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ChatGroups_seenBy`
---
-
-LOCK TABLES `ChatGroups_seenBy` WRITE;
-/*!40000 ALTER TABLE `ChatGroups_seenBy` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChatGroups_seenBy` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ChatMessage_seenBy`
---
-
-DROP TABLE IF EXISTS `ChatMessage_seenBy`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatMessage_seenBy` (
-  `ChatMessage_id` bigint(20) NOT NULL,
-  `seenBy` bigint(20) DEFAULT NULL,
-  KEY `FKm8em32ytc2id5133tu1lgyynj` (`ChatMessage_id`),
-  CONSTRAINT `FKm8em32ytc2id5133tu1lgyynj` FOREIGN KEY (`ChatMessage_id`) REFERENCES `ChatMessages` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ChatMessage_seenBy`
---
-
-LOCK TABLES `ChatMessage_seenBy` WRITE;
-/*!40000 ALTER TABLE `ChatMessage_seenBy` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChatMessage_seenBy` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ChatMessages`
---
-
-DROP TABLE IF EXISTS `ChatMessages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatMessages` (
-  `id` bigint(20) NOT NULL,
-  `createdAt` datetime(6) DEFAULT NULL,
-  `ownerId` bigint(20) DEFAULT NULL,
-  `updatedAt` datetime(6) DEFAULT NULL,
+  `adultId` bigint(20) DEFAULT NULL,
   `message` text DEFAULT NULL,
-  `reciverId` bigint(20) DEFAULT NULL,
-  `senderId` bigint(20) DEFAULT NULL,
-  `senderImage` varchar(255) DEFAULT NULL,
-  `senderName` varchar(255) DEFAULT NULL,
+  `sender` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ChatMessages`
+-- Dumping data for table `ChatLogs`
 --
 
-LOCK TABLES `ChatMessages` WRITE;
-/*!40000 ALTER TABLE `ChatMessages` DISABLE KEYS */;
-INSERT INTO `ChatMessages` VALUES
-(208763061547008,'2025-03-26 11:16:01.737817',NULL,NULL,'hallooo',199268075270145,130,'media\\image\\large_lemons-0718_1.png','Sauer Zitrone'),
-(208763061547010,'2025-03-26 11:17:01.737000',NULL,NULL,'holaa, wie geths',130,199268075270145,NULL,'Terry tupano'),
-(208763061547030,'2025-03-26 11:47:01.737000',NULL,NULL,'holaa, wie geths',130,199268075270145,NULL,'Terry tupano'),
-(208767365910528,'2025-03-26 11:33:32.607781',NULL,NULL,'fghj',199268075270145,130,'media\\image\\large_lemons-0718_1.png','Sauer Zitrone'),
-(209159897042944,'2025-03-27 14:10:45.404990',NULL,NULL,'cvb',199268075270145,130,'media\\image\\large_lemons-0718_1.png','Sauer Zitrone'),
-(210948228833280,'2025-04-01 15:27:29.846022',NULL,NULL,'asdf\nagadgsdfg',199268075270145,130,'media\\image\\large_lemons-0718_1.png','Sauer Zitrone');
-/*!40000 ALTER TABLE `ChatMessages` ENABLE KEYS */;
+LOCK TABLES `ChatLogs` WRITE;
+/*!40000 ALTER TABLE `ChatLogs` DISABLE KEYS */;
+INSERT INTO `ChatLogs` VALUES
+(218044033683456,'2025-04-21 16:40:24.075918',NULL,NULL,199268075270145,'yxcv','ADULT'),
+(218044040724480,'2025-04-21 16:40:25.794995',NULL,NULL,199268075270145,'Hola! Soy una mascota virtual diseñada para brindar compañía y diversion a personas mayores. Estoy aquí para hablar sobre cosas interesantes, compartir historias o simplemente pasar el tiempo. ¿Qué te gustaría hablar hoy?','TAMAGOTCHI'),
+(218044856078336,'2025-04-21 16:43:44.855257',NULL,NULL,199268075270145,'hola, dormiste bien?','ADULT'),
+(218044868935680,'2025-04-21 16:43:47.994956',NULL,NULL,199268075270145,'Hola! ¡Gracias por hablar conmigo! Sí, ¿cómo estás hoy? ¿Te acordaste que te prometí contarte una historia? ¡Vamos a empezar!\n\nUna vez había una vieja y sabia bruja que vivía en un pequeño pueblo en el bosque. Era una persona muy solitaria e inusual, pero la gente del pueblo la respetaba mucho. Una vez, la bruja decidió hacer algo diferente.\n\nDecidió hacer un viaje a una ciudad lejana y comprar un regalo para cada persona en el pueblo. Compró un collar de perlas para la alcaldesa, un reloj de oro para el sacerdote y una taza de porcelana para la bella joven del pueblo.\n\nPero la más importante de todas las cosas, la bruja compró un pequeño oso de peluche para el niño más pequeño del pueblo. Él era un niño muy triste y solitario, y la bruja quería hacerle una pequeña sorpresa.\n\nAl llegar a casa, la bruja se encontró con un muchacho que estaba muy enfermo en su cama. Era el niño al que había comprado el oso de peluche. La bruja se acercó a su lado y le dio el oso.\n\nEl niño abrió sus ojos y sonrió. ¡A partir de ese día, nunca volvió a ser triste! ¡Qué historia, no es cierto? ¿Te gustó?','TAMAGOTCHI'),
+(218047486423040,'2025-04-21 16:54:27.030540',NULL,NULL,199268075270145,'hola como estas?','ADULT'),
+(218047490740224,'2025-04-21 16:54:28.083988',NULL,NULL,199268075270145,'Hola! Estoy muy contento de hablar contigo hoy. ¿Cómo estás en este momento? ¿Tienes algo en particular que quieras hablar o preguntar? Estoy aquí para ti.','TAMAGOTCHI');
+/*!40000 ALTER TABLE `ChatLogs` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ChatMessages_seenBy`
+-- Table structure for table `ChatMessageEntities`
 --
 
-DROP TABLE IF EXISTS `ChatMessages_seenBy`;
+DROP TABLE IF EXISTS `ChatMessageEntities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ChatMessages_seenBy` (
-  `ChatMessage_id` bigint(20) NOT NULL,
-  `seenBy` bigint(20) DEFAULT NULL,
-  KEY `FKk8vgk5o3g250rexo0ssj0bwsl` (`ChatMessage_id`),
-  CONSTRAINT `FKk8vgk5o3g250rexo0ssj0bwsl` FOREIGN KEY (`ChatMessage_id`) REFERENCES `ChatMessages` (`id`)
+CREATE TABLE `ChatMessageEntities` (
+  `id` bigint(20) NOT NULL,
+  `createdAt` datetime(6) DEFAULT NULL,
+  `ownerId` bigint(20) DEFAULT NULL,
+  `updatedAt` datetime(6) DEFAULT NULL,
+  `memoryId` bigint(20) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `type` tinyint(4) DEFAULT NULL CHECK (`type` between 0 and 4),
+  PRIMARY KEY (`id`),
+  KEY `ChatMessageEntities_memoryId` (`memoryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ChatMessages_seenBy`
+-- Dumping data for table `ChatMessageEntities`
 --
 
-LOCK TABLES `ChatMessages_seenBy` WRITE;
-/*!40000 ALTER TABLE `ChatMessages_seenBy` DISABLE KEYS */;
-INSERT INTO `ChatMessages_seenBy` VALUES
-(208763061547008,130),
-(208763061547010,130),
-(208767365910528,130),
-(208763061547030,130),
-(209159897042944,130),
-(210948228833280,130);
-/*!40000 ALTER TABLE `ChatMessages_seenBy` ENABLE KEYS */;
+LOCK TABLES `ChatMessageEntities` WRITE;
+/*!40000 ALTER TABLE `ChatMessageEntities` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ChatMessageEntities` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -686,30 +534,30 @@ INSERT INTO `Emojies` VALUES
 (1,NULL,NULL,NULL,'mild','🙂',2,'Slightly smiling face','U+1F642'),
 (2,NULL,NULL,NULL,'warm','☺️',3,'Smiling face','U+263A'),
 (3,NULL,NULL,NULL,'excited joy','😃',4,'Smiling face with big eyes','U+1F603'),
-(4,NULL,NULL,NULL,'heartfelt happiness','😄',4,'Smiling face with smiling eyes','U+1F604'),
+(4,NULL,NULL,NULL,'happiness','😄',4,'Smiling face with smiling eyes','U+1F604'),
 (5,NULL,NULL,NULL,'extreme joy','😁',5,'Beaming face with smiling eyes','U+1F601'),
 (6,NULL,NULL,NULL,'relieved/laughing under stress','😅',3,'Smiling face with tears','U+1F605'),
 (7,NULL,NULL,NULL,'playful laughter','😆',4,'Grinning face','U+1F606'),
 (8,NULL,NULL,NULL,'uncontrollable laughter','🤣',5,'Rolling on the floor laughing','U+1F923'),
 (9,NULL,NULL,NULL,'overwhelmed by humor','😂',5,'Lauging with tears','U+1F602'),
-(10,NULL,NULL,NULL,'silly/ironic','🙃',2,'Upside down face','U+1F643'),
-(11,NULL,NULL,NULL,'playful tease','😉',2,'Winking face','U+1F609'),
-(12,NULL,NULL,NULL,'innocent/peaceful','😇',1,'Smiling face with halo','U+1F607'),
-(13,NULL,NULL,NULL,'cool/confident','😎',2,'Smiling face with sunglasses','U+1F60E'),
+(10,NULL,NULL,NULL,'silly, ironic','🙃',2,'Upside down face','U+1F643'),
+(11,NULL,NULL,NULL,'playful, tease','😉',2,'Winking face','U+1F609'),
+(12,NULL,NULL,NULL,'innocent, peaceful','😇',1,'Smiling face with halo','U+1F607'),
+(13,NULL,NULL,NULL,'cool, confident','😎',2,'Smiling face with sunglasses','U+1F60E'),
 (14,NULL,NULL,NULL,'intellectual','🤓',1,'Nerdy face','U+1F913'),
-(15,NULL,NULL,NULL,'curious/skeptical','🧐',1,'Face with monocle','U+1F9D0'),
-(16,NULL,NULL,NULL,'extreme celebration','🥳',5,'Partying face','U+1F973'),
-(17,NULL,NULL,NULL,'loving adoration','🥰',4,'Smiling face with hearts','U+1F970'),
-(18,NULL,NULL,NULL,'deep infatuation','😍',5,'Smiling face with heart eyes','U+1F60D'),
-(19,NULL,NULL,NULL,'awestruck admiration','🤩',5,'Star-struck','U+1F929'),
+(15,NULL,NULL,NULL,'curious, skeptical','🧐',1,'Face with monocle','U+1F9D0'),
+(16,NULL,NULL,NULL,'celebration','🥳',5,'Partying face','U+1F973'),
+(17,NULL,NULL,NULL,'adoration','🥰',4,'Smiling face with hearts','U+1F970'),
+(18,NULL,NULL,NULL,'infatuation','😍',5,'Smiling face with heart eyes','U+1F60D'),
+(19,NULL,NULL,NULL,'admiration','🤩',5,'Star-struck','U+1F929'),
 (20,NULL,NULL,NULL,'affectionate','😘',4,'Face blowing kiss','U+1F618'),
-(21,NULL,NULL,NULL,'neutral kiss','😗',3,'Kissing face','U+1F617'),
-(22,NULL,NULL,NULL,'romantic kiss','😚',4,'Kissing face with closed eyes','U+1F61A'),
-(23,NULL,NULL,NULL,'friendly kiss','😙',3,'Kissing face with smiling eyes','U+1F619'),
+(21,NULL,NULL,NULL,'neutral, kiss','😗',3,'Kissing face','U+1F617'),
+(22,NULL,NULL,NULL,'romantic, kiss','😚',4,'Kissing face with closed eyes','U+1F61A'),
+(23,NULL,NULL,NULL,'friendly, kiss','😙',3,'Kissing face with smiling eyes','U+1F619'),
 (24,NULL,NULL,NULL,'playful enjoyment','😋',3,'Yummy face','U+1F60B'),
-(25,NULL,NULL,NULL,'cheeky/silly','😛',2,'Face with tongue','U+1F61B'),
+(25,NULL,NULL,NULL,'cheeky, silly','😛',2,'Face with tongue','U+1F61B'),
 (26,NULL,NULL,NULL,'mischievous','😜',3,'Winking face with tongue','U+1F61C'),
-(27,NULL,NULL,NULL,'wild/goofy','🤪',4,'Zany face','U+1F92A'),
+(27,NULL,NULL,NULL,'wild, goofy','🤪',4,'Zany face','U+1F92A'),
 (28,NULL,NULL,NULL,'exaggerated silliness','😝',3,'Squinting face with tongue','U+1F61D'),
 (29,NULL,NULL,NULL,'greedy excitement','🤑',3,'Money face with money tongue','U+1F911'),
 (30,NULL,NULL,NULL,'warm affection','🤗',3,'Hugs','U+1F917'),
@@ -899,7 +747,11 @@ INSERT INTO `Events` VALUES
 (203519019429888,'2025-03-11 15:37:58.017242',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
 (205642357256192,'2025-03-17 15:37:51.044609',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
 (206350014869504,'2025-03-19 15:37:19.013809',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
-(213413153177600,'2025-04-08 14:37:18.016962',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL);
+(213413153177600,'2025-04-08 14:37:18.016962',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
+(214474787262464,'2025-04-11 14:37:06.024885',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
+(215536511467520,'2025-04-14 14:37:16.037034',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
+(216598201069568,'2025-04-17 14:37:17.603797',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL),
+(218013829550080,'2025-04-21 14:37:30.023758',NULL,NULL,'\0',NULL,'is time to swallo the medicament Ibuprofeno',NULL,3,'PT5M','Medikamenteneinnahme','MEDICATION','WAITING',NULL);
 /*!40000 ALTER TABLE `Events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1182,6 +1034,136 @@ LOCK TABLES `NotificationChannels_Mailings` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `P2PGroup_members`
+--
+
+DROP TABLE IF EXISTS `P2PGroup_members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `P2PGroup_members` (
+  `P2PGroup_id` bigint(20) NOT NULL,
+  `members` bigint(20) DEFAULT NULL,
+  KEY `FKikrejqclf7vubbic0ftb8241x` (`P2PGroup_id`),
+  CONSTRAINT `FKikrejqclf7vubbic0ftb8241x` FOREIGN KEY (`P2PGroup_id`) REFERENCES `P2PGroups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `P2PGroup_members`
+--
+
+LOCK TABLES `P2PGroup_members` WRITE;
+/*!40000 ALTER TABLE `P2PGroup_members` DISABLE KEYS */;
+/*!40000 ALTER TABLE `P2PGroup_members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `P2PGroup_seenBy`
+--
+
+DROP TABLE IF EXISTS `P2PGroup_seenBy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `P2PGroup_seenBy` (
+  `P2PGroup_id` bigint(20) NOT NULL,
+  `seenBy` bigint(20) DEFAULT NULL,
+  KEY `FK16d5oq7iiy15s2mrwqikjarry` (`P2PGroup_id`),
+  CONSTRAINT `FK16d5oq7iiy15s2mrwqikjarry` FOREIGN KEY (`P2PGroup_id`) REFERENCES `P2PGroups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `P2PGroup_seenBy`
+--
+
+LOCK TABLES `P2PGroup_seenBy` WRITE;
+/*!40000 ALTER TABLE `P2PGroup_seenBy` DISABLE KEYS */;
+/*!40000 ALTER TABLE `P2PGroup_seenBy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `P2PGroups`
+--
+
+DROP TABLE IF EXISTS `P2PGroups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `P2PGroups` (
+  `id` bigint(20) NOT NULL,
+  `createdAt` datetime(6) DEFAULT NULL,
+  `ownerId` bigint(20) DEFAULT NULL,
+  `updatedAt` datetime(6) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `lastMessage` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `P2PGroups`
+--
+
+LOCK TABLES `P2PGroups` WRITE;
+/*!40000 ALTER TABLE `P2PGroups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `P2PGroups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `P2PMessage_seenBy`
+--
+
+DROP TABLE IF EXISTS `P2PMessage_seenBy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `P2PMessage_seenBy` (
+  `P2PMessage_id` bigint(20) NOT NULL,
+  `seenBy` bigint(20) DEFAULT NULL,
+  KEY `FKlybvhrwj2vaoweanw1gl9fuyx` (`P2PMessage_id`),
+  CONSTRAINT `FKlybvhrwj2vaoweanw1gl9fuyx` FOREIGN KEY (`P2PMessage_id`) REFERENCES `P2PMessages` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `P2PMessage_seenBy`
+--
+
+LOCK TABLES `P2PMessage_seenBy` WRITE;
+/*!40000 ALTER TABLE `P2PMessage_seenBy` DISABLE KEYS */;
+/*!40000 ALTER TABLE `P2PMessage_seenBy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `P2PMessages`
+--
+
+DROP TABLE IF EXISTS `P2PMessages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `P2PMessages` (
+  `id` bigint(20) NOT NULL,
+  `createdAt` datetime(6) DEFAULT NULL,
+  `ownerId` bigint(20) DEFAULT NULL,
+  `updatedAt` datetime(6) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `reciverId` bigint(20) DEFAULT NULL,
+  `senderId` bigint(20) DEFAULT NULL,
+  `senderImage` varchar(255) DEFAULT NULL,
+  `senderName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `P2PMessages`
+--
+
+LOCK TABLES `P2PMessages` WRITE;
+/*!40000 ALTER TABLE `P2PMessages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `P2PMessages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Prescription`
 --
 
@@ -1336,6 +1318,9 @@ CREATE TABLE `Tamagotchies` (
   `weight` int(11) NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `currentEmotion` varchar(255) DEFAULT NULL,
+  `lastMillis` bigint(20) NOT NULL,
+  `generalEmotion` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1347,7 +1332,7 @@ CREATE TABLE `Tamagotchies` (
 LOCK TABLES `Tamagotchies` WRITE;
 /*!40000 ALTER TABLE `Tamagotchies` DISABLE KEYS */;
 INSERT INTO `Tamagotchies` VALUES
-(210938461782016,'2025-04-01 14:47:45.310501',NULL,NULL,0,'\0',NULL,0,0,0,0,0,0,0,'\0',0,'media\\image\\Avatar1_1.jpeg','test');
+(210938461782016,'2025-04-01 14:47:45.310501',NULL,'2025-04-21 17:53:10.014300',1,'\0','14:04:55.897000',-2188,-2288,98,-2242,2,-2262,91,'\0',50,'media\\image\\Avatar1_1.jpeg','test','🙂',1744637663962,0);
 /*!40000 ALTER TABLE `Tamagotchies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1457,7 +1442,7 @@ CREATE TABLE `Users` (
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 INSERT INTO `Users` VALUES
-(130,'2023-06-21 14:40:55.880581',130,'2025-04-08 15:21:38.247788',NULL,'Zitrone@simone.de',0,'Sauer',NULL,'','','\0','','\0','\0','Zitrone','2025-04-08 15:21:38.246822','$2a$04$M2K6kiIkfsxqvHgl18/13OROOP3N3zqMgZgDHbTfktwz7LkDt/ZBe','+4915224625752','de','light',22,-1,'VERIFIED','CARER','Zitrone','ZRQJBAVOS3NUU3ERIGL2C37RBM74ZS7O',260,84233121845248,NULL,203885631447040);
+(130,'2023-06-21 14:40:55.880581',130,'2025-04-21 17:45:17.768839',NULL,'Zitrone@simone.de',0,'Sauer',NULL,'','','\0','','\0','\0','Zitrone','2025-04-21 17:45:17.766969','$2a$04$M2K6kiIkfsxqvHgl18/13OROOP3N3zqMgZgDHbTfktwz7LkDt/ZBe','+4915224625752','de','light',22,-1,'VERIFIED','CARER','Zitrone','ZRQJBAVOS3NUU3ERIGL2C37RBM74ZS7O',260,84233121845248,NULL,203885631447040);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1578,4 +1563,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-04-08 15:24:48
+-- Dump completed on 2025-04-21 17:53:22

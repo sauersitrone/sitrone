@@ -148,11 +148,11 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
         //         new SideNavItem(getTranslation("three"), Three.class, LineAwesomeIcon.THERMOMETER_HALF_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("MessaginProvidersView"), MessaginProvidersView.class,
                 LineAwesomeIcon.PAPER_PLANE.create()));
-        nav.addItem(new SideNavItem(getTranslation("ChatMessagesView"), ChatMessagesView.class,
+        nav.addItem(new SideNavItem(getTranslation("P2PMessagesView"), P2PMessagesView.class,
                 LineAwesomeIcon.COMMENTS.create()));
         nav.addItem(new SideNavItem(getTranslation("TamagotchiesView"), TamagotchiesView.class,
                 LineAwesomeIcon.DOG_SOLID.create()));
-        nav.addItem(new SideNavItem(getTranslation("TamagotchiChat"), "TamagotchiChat/199268075270145",
+        nav.addItem(new SideNavItem(getTranslation("TamagotchiChat"), TamagotchiChat.class,
                 LineAwesomeIcon.CAT_SOLID.create()));
         nav.addItem(new SideNavItem("PrescriptionsView ", "Prescriptions/199268075270145",
                 LineAwesomeIcon.PILLS_SOLID.create()));

@@ -1,30 +1,25 @@
 package de.simone.ui;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.dom.PropertyChangeEvent;
-import com.vaadin.flow.dom.PropertyChangeListener;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import de.simone.MainLayout;
-import de.simone.UIUtils;
-import de.simone.backend.Adult;
-import de.simone.backend.Tamagotchi;
-import de.simone.ui.components.TTimer;
-import jakarta.transaction.Transactional;
-import org.vaadin.lineawesome.LineAwesomeIcon;
+import org.vaadin.lineawesome.*;
+
+import com.vaadin.flow.component.button.*;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.messages.*;
+import com.vaadin.flow.component.orderedlayout.*;
+import com.vaadin.flow.dom.*;
+import com.vaadin.flow.router.*;
+import com.vaadin.flow.server.auth.*;
+
+import de.simone.*;
+import de.simone.backend.*;
+import de.simone.ui.components.*;
+import jakarta.inject.*;
+import jakarta.transaction.*;
 
 @AnonymousAllowed
 @Route(value = "TamagotchiChat", layout = MainLayout.class)
 public class TamagotchiChat extends VerticalLayout
-    implements PropertyChangeListener, HasUrlParameter<Long> {
+    implements BeforeEnterObserver, PropertyChangeListener {
 
   private H1 emotionEmoji;
   private Paragraph paragraph;
@@ -32,18 +27,22 @@ public class TamagotchiChat extends VerticalLayout
   private Tamagotchi tamagotchi;
   private TTimer timer;
   private Span status;
+  private MessageInput messageInput;
+
+  @Inject
+ChatLogsService chatLogsService;
 
   public TamagotchiChat() {
     setSpacing(false);
     timer = UIUtils.getTimer(this, 1);
     add(timer);
 
+    paragraph = new Paragraph();
+    add(paragraph);
+
     emotionEmoji = new H1();
     emotionEmoji.setWidth("200px");
     add(emotionEmoji);
-
-    paragraph = new Paragraph();
-    add(paragraph);
 
     Button eat = new Button("Essen", LineAwesomeIcon.COOKIE_BITE_SOLID.create());
     eat.addClickListener(e -> tamagotchi.eat());
@@ -61,23 +60,19 @@ public class TamagotchiChat extends VerticalLayout
     status = new Span();
     add(status);
 
+    messageInput = new MessageInput(e -> sendMessage(e.getValue()));
+    messageInput.setWidthFull();
+    add(messageInput);
+
     setSizeFull();
     setJustifyContentMode(JustifyContentMode.CENTER);
     setDefaultHorizontalComponentAlignment(Alignment.CENTER);
     getStyle().set("text-align", "center");
   }
 
-  @Override
-  public void setParameter(BeforeEvent event, Long parameter) {
-    this.adult = Adult.findById(parameter);
-    this.tamagotchi = Tamagotchi.findById(adult.tamagotchiId);
-
-    // init llm with background
-
-    // salute
-    emotionEmoji.setText(tamagotchi.currentEmotion);
-    paragraph.setText("hallo!!! wie gehts dir?");
-    timer.start();
+  private void sendMessage(String message) {
+    String answ = chatLogsService.sendMessage(adult.id, message);
+    paragraph.setText(answ);
   }
 
   @Override
@@ -86,6 +81,18 @@ public class TamagotchiChat extends VerticalLayout
     tamagotchi.timePassed();
     status.getElement().setProperty("innerHTML", tamagotchi.toHtmlString());
     emotionEmoji.setText(tamagotchi.currentEmotion);
+  }
 
+  @Override
+  public void beforeEnter(BeforeEnterEvent event) {
+    this.adult = Adult.findById(199268075270145L);
+    this.tamagotchi = Tamagotchi.findById(adult.tamagotchiId);
+
+    // init llm with background
+
+    // salute
+    emotionEmoji.setText(tamagotchi.currentEmotion);
+    paragraph.setText("hallo!!! wie gehts dir?");
+    timer.start();
   }
 }

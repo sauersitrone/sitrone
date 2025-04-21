@@ -31,7 +31,7 @@ public class ExternalLoginService {
     @Inject
     UsersService usersService;
     @Inject
-    ChatsService notificationsService;
+    P2PChatsService notificationsService;
 
     @Inject
     MailingsService mailingsService;

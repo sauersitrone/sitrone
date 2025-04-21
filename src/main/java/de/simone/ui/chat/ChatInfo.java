@@ -2,18 +2,18 @@
 package de.simone.ui.chat;
 import com.vaadin.flow.component.html.Span;
 
-import de.simone.backend.ChatGroup;
+import de.simone.backend.P2PGroup;
 
 public class ChatInfo {
 
     public String name;
-    public ChatGroup group;
+    public P2PGroup group;
     public int messageCount;
 
     private int unread;
     private Span unreadBadge;
 
-    public ChatInfo(ChatGroup channel, int unread) {
+    public ChatInfo(P2PGroup channel, int unread) {
         this.group = channel;
         this.name = channel.name;
         this.unread = unread;
