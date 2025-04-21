@@ -2,10 +2,13 @@ package de.simone.backend.llm;
 
 import dev.langchain4j.service.*;
 import io.quarkiverse.langchain4j.RegisterAiService;
+import jakarta.enterprise.context.*;
 
-@RegisterAiService(
-        // chatMemoryProviderSupplier = TChatMemoryProvider.class,
-        tools = Tools.class)
+@SessionScoped
+@RegisterAiService
+// @RegisterAiService(
+//         chatMemoryProviderSupplier = TChatMemoryProvider.class,
+//         tools = Tools.class)
 public interface AiService {
 
     @SystemMessage("You are a professional poet.")
@@ -15,15 +18,11 @@ public interface AiService {
     String writeAPoem(@V("topic") String topic, @V("lines") int lines);
 
     
-    /**
-     * chat
-     * 
-     * @param memoryId    - the memory id (same as adultId)
-     * @param userMessage - the message
-     * @return the response
-     */
+//     @SystemMessage("You are a professional poet.")
+//     String chat(@MemoryId long memoryId, @UserMessage String userMessage);
+
     @SystemMessage("You are a professional poet.")
-    String chat(@MemoryId long memoryId, @UserMessage String userMessage);
+    String chat( String userMessage);
 
     @SystemMessage("""
             You are working for a bank. You are an AI processing reviews about financial products. You need to triage the reviews into positive and negative ones.
@@ -32,7 +31,7 @@ public interface AiService {
     @UserMessage("""
             Tu tarea es procesar la reseña delimitada por ---.
             Aplica un análisis de sentimiento a la reseña para determinar si es SCARED, HAPPY, SAD, EXCITED, WORRIED.
-            La reseña simpre estan en espanol.
+            La reseña siempre estan en espanol.
 
             Por ejemplo:
             - "A veces me da miedo que me pase algo y nadie se dé cuenta por días". Esto significa 'SCARED'

@@ -27,8 +27,8 @@ public class ChatMessage extends TAEntity {
     @Size(max = SIZE_DESCRIPTIONS)
     public String senderName;
 
-    @NotBlank
-    @NotEmpty
+    // @NotBlank
+    // @NotEmpty
     @Size(max = SIZE_DESCRIPTIONS)
     public String senderImage;
     

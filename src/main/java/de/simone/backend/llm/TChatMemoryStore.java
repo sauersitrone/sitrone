@@ -5,13 +5,6 @@ import java.util.*;
 import dev.langchain4j.data.message.*;
 import dev.langchain4j.store.memory.chat.*;
 
-/**
- * TODO: i dont know the frequency in wich this class in invoqued. to avoid
- * overread on db, implement first a copy of InMemoryChatMemoryStore, make trace
- * and the continue
- * 
- * check MessageWindowChatMemory
- */
 public class TChatMemoryStore implements ChatMemoryStore {
 
     @Override
