@@ -25,7 +25,7 @@ public class TamagotchiChat extends VerticalLayout
   private Paragraph paragraph;
   private Adult adult;
   private Tamagotchi tamagotchi;
-  private TTimer timer;
+  private TTimer timer; 
   private Span status;
   private MessageInput messageInput;
 
@@ -44,7 +44,7 @@ ChatLogsService chatLogsService;
     emotionEmoji.setWidth("200px");
     add(emotionEmoji);
 
-    Button eat = new Button("Essen", LineAwesomeIcon.COOKIE_BITE_SOLID.create());
+    Button eat = new Button("Essens", LineAwesomeIcon.COOKIE_BITE_SOLID.create());
     eat.addClickListener(e -> tamagotchi.eat());
     Button play = new Button("Spielen", LineAwesomeIcon.GUITAR_SOLID.create());
     play.addClickListener(e -> tamagotchi.play(5));
@@ -56,7 +56,7 @@ ChatLogsService chatLogsService;
     clean.addClickListener(e -> tamagotchi.clean());
     HorizontalLayout horizontalLayout = new HorizontalLayout(eat, play, wakeUp, sleep, clean);
     add(horizontalLayout);
-
+ 
     status = new Span();
     add(status);
 
