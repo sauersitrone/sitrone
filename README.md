@@ -1,4 +1,4 @@
-# Project Base for Vaadin Flow and Quarkus
+# Project Base for Vaadin Flow and Quarkus11
 
 This project can be used as a starting point to create your own Vaadin Flow application for Quarkus. It contains all the necessary configuration with some placeholder files to get you started.
 
