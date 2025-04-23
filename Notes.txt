@@ -1,11 +1,8 @@
-interactive chat
-interaktive sache, wo die Leute miteinander komunizieren könnte
-conversationals tools
-men-to-men
-medic care database
-look for a github repo for medical db design. the design muss be a medicament control db e.g whe de patient muss take the medicament. 
-medikament scannen
-medikament suchen (externe db)
+todos
+-------------------------------
+add tags to the adult. the tagas are description or personality trails that are incorporated in @systemmessage to config the Tamagotchi
+add the variables to the systemmesage from, adult, tamagotschi status etc
+migrate to postgredb
 
 https://github.com/Dipak-Ahirav/dog-avatar-login-animation
 https://github.com/andrea-liu87/Capstone-Project
@@ -22,3 +19,9 @@ https://uusveeb.ee/mang/my-pou-virtual-pet/
 
 https://vaadin.com/forum/t/vaadin-threejs/165939/2
 https://github.com/Artur-/threejs-vaadin?tab=readme-ov-file
+
+
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+docker exec -it ollama /bin/bash
+ollama pull ai/mistral:7B-F16
+docker model pull ai/mistral:7B-F16

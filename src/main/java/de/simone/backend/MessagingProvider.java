@@ -34,13 +34,13 @@ public class MessagingProvider extends TAEntity {
   @Size(max = TAEntity.SIZE_255)
   public String secret;
 
-  @NotBlank
-  @NotEmpty
+  // @NotBlank
+  // @NotEmpty
   @Size(max = TAEntity.SIZE_255)
   public String clientIdTest;
 
-  @NotBlank
-  @NotEmpty
+  // @NotBlank
+  // @NotEmpty
   @Size(max = TAEntity.SIZE_255)
   public String secretTest;
 

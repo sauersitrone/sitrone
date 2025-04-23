@@ -13,7 +13,7 @@ import de.simone.MainLayout;
 import de.simone.SecurityUtils;
 import de.simone.UIUtils;
 import de.simone.backend.HanniTask;
-import de.simone.backend.ChatsService;
+import de.simone.backend.P2PChatsService;
 import de.simone.backend.UsersService;
 import de.simone.ui.components.TTimer;
 import de.simone.ui.components.HanniResourceCenter;
@@ -30,7 +30,7 @@ public class Home extends VerticalLayout implements HasDynamicTitle, BeforeEnter
     private HanniResourceCenter hanniResourceCenter;
 
         @Inject
-    public ChatsService notificationsService;
+    public P2PChatsService notificationsService;
 
     private static String hanniHeight = "670px";
 

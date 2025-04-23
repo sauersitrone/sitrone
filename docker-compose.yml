@@ -12,9 +12,26 @@ services:
       - ${MYSQL_PORT}:3306
     volumes:
       - ./mariadb-init:/docker-entrypoint-initdb.d
-      # - ./database:/var/lib/mysql
-#     networks:
-#       - simone
+
+#   mistral:
+#     image: ollama/ollama
+#     container_name: mistral
+#     restart: always
+#     ports:
+#       - 11434:11434
+#     volumes:
+#       - ollama_data:/root/.ollama
+#     command: >
+#       bash -c "
+#         ollama serve &
+#         sleep 5 &&
+#         ollama pull mistral:7B-F16
+#         wait
+#       "
+
+# volumes:
+#   ollama_data:
+
 
 # networks:
 #   simone:

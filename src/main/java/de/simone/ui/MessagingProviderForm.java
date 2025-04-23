@@ -29,7 +29,7 @@ public class MessagingProviderForm extends TAForm<MessagingProvider> {
     secretTest = UIUtils.getTextField("MessagingProvider.secretTest");
     addBodyComponets(provider, accountName);
     addBodyComponets("messagingProvider.separator1", clientId, secret);
-    addBodyComponets("messagingProvider.separator2", clientIdTest, secretTest);
+    // addBodyComponets("messagingProvider.separator2", clientIdTest, secretTest);
   }
 
   @Override

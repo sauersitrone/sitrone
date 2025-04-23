@@ -11,10 +11,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import de.simone.SecurityUtils;
 import de.simone.UIUtils;
-import de.simone.backend.ChatMessage;
+import de.simone.backend.P2PMessage;
 import de.simone.backend.HanniLog;
 import de.simone.backend.HanniTask;
-import de.simone.backend.ChatsService;
+import de.simone.backend.P2PChatsService;
 import de.simone.backend.User;
 import de.simone.ui.Home;
 import jakarta.transaction.Transactional;
@@ -27,7 +27,7 @@ public class HanniResourceCenter extends VerticalLayout {
     private VerticalLayout bodyLayout;
     private User user;
     private Home home;
-    private ChatsService notificationsService;
+    private P2PChatsService notificationsService;
 
     public HanniResourceCenter() {
         UIUtils.setCompatStyle(this);

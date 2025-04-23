@@ -1,25 +1,16 @@
 package de.simone.backend;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.*;
+import java.util.*;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.IdGeneratorType;
+import org.hibernate.annotations.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvDate;
+import com.fasterxml.jackson.annotation.*;
+import com.opencsv.bean.*;
 
-import de.simone.TranslationProvider;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+import de.simone.*;
+import io.quarkus.hibernate.orm.panache.*;
+import jakarta.persistence.*;
 
 @MappedSuperclass
 public abstract class TAEntity extends PanacheEntityBase implements Comparable<TAEntity> {

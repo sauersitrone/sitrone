@@ -143,7 +143,7 @@ public class FileLoaderSimple extends CustomField<String> {
     if (fileBuffer != null) {
       String source = MiscellaneousService.saveToFile(fileBuffer.getInputStream(), fileName);
       fileBuffer = null;
-      setValue(source);
+      return source;
     }
     // return super.getValue();
     return null;
@@ -151,7 +151,15 @@ public class FileLoaderSimple extends CustomField<String> {
 
   @Override
   protected String generateModelValue() {
-    return "";
+    // System.out.println("FileLoaderSimple.generateModelValue()");
+    // if (fileBuffer != null) {
+    //   String source = MiscellaneousService.saveToFile(fileBuffer.getInputStream(), fileName);
+    //   fileBuffer = null;
+    //   // setValue(source);
+    //   return source;
+    // }
+    // // return super.getValue();
+    return null;
   }
 
   @Override

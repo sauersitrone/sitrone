@@ -94,7 +94,7 @@ import de.mekaso.vaadin.addon.compani.effect.Repeat;
 import de.mekaso.vaadin.addon.compani.effect.Speed;
 import de.simone.backend.Adult;
 import de.simone.backend.AuthenticationResult;
-import de.simone.backend.ChatMessage;
+import de.simone.backend.P2PMessage;
 import de.simone.backend.Country;
 import de.simone.backend.Drug;
 import de.simone.backend.Event;
