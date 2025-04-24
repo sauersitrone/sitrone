@@ -8,16 +8,16 @@ import com.vaadin.flow.component.messages.*;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.dom.*;
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.server.auth.*;
 
 import de.simone.*;
 import de.simone.backend.*;
 import de.simone.ui.components.*;
+import jakarta.annotation.security.*;
 import jakarta.inject.*;
 import jakarta.transaction.*;
 
-@AnonymousAllowed
-@Route(value = "TamagotchiChat", layout = MainLayout.class)
+@RolesAllowed({ "Sitrone.master", "Tamagotchies" })
+@Route(value = "TamagotchiChat", layout = MainLayout.class) 
 public class TamagotchiChat extends VerticalLayout
     implements BeforeEnterObserver, PropertyChangeListener {
 
@@ -62,7 +62,7 @@ public class TamagotchiChat extends VerticalLayout
 
     messageInput = new MessageInput(e -> sendMessage(e.getValue()));
     messageInput.setWidthFull();
-    add(messageInput);
+    add(messageInput); 
 
     setSizeFull();
     setJustifyContentMode(JustifyContentMode.CENTER);

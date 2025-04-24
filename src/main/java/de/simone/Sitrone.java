@@ -25,16 +25,16 @@ public class Sitrone implements AppShellConfigurator {
     @ConfigProperty(name = "quarkus.hibernate-orm.jdbc.timezone")
     String jdbcTimezone;
 
-    @ConfigProperty(name = "Sitrone.timezone")
+    @ConfigProperty(name = "sitrone.timezone")
     String sitroneTimezone;
 
-    @ConfigProperty(name = "Sitrone.country")
+    @ConfigProperty(name = "sitrone.country")
     String country;
 
-    @ConfigProperty(name = "Sitrone.language")
+    @ConfigProperty(name = "sitrone.language")
     String language;
 
-    @ConfigProperty(name = "Sitrone.version")
+    @ConfigProperty(name = "sitrone.version")
     public String version;
 
     private static Sitrone sitrone;
