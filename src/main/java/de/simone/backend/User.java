@@ -53,10 +53,10 @@ import net.andreinc.jbvext.annotations.misc.OneOfStrings;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends TAEntity {
 
-    public static final String APP_MASTER_ROLE = "Zitrone.master";
+    public static final String APP_MASTER_ROLE = "Sitrone.master";
     public static final String ANONYMOUS = "User.anonymous";
 
-    public static final String ADMIN_USER_NAME = "Zitrone";  
+    public static final String ADMIN_USER_NAME = "Sitrone";  
 
     public static final String UNVERIFIED = "UNVERIFIED"; 
     public static final String INCOMPLETE = "INCOMPLETE";

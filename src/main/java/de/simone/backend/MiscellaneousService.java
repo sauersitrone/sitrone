@@ -81,7 +81,7 @@ public class MiscellaneousService {
 
   @GET
   @Path("/getEntityFields/{entityName}")
-  @RolesAllowed({"Zitrone.master"})
+  @RolesAllowed({"Sitrone.master"})
   @SuppressWarnings({"rawtypes", "unchecked"})
   public Map<String, String> getEntityFields2(@PathParam(value = "entityName") String entityName)
       throws ClassNotFoundException, WebApplicationException {
@@ -91,7 +91,7 @@ public class MiscellaneousService {
     String root = System.getProperty("user.dir");
     File rootDir = new File(root + "/target/classes/de/gooddev/backend");
     // is prod entvirontment
-    File prodDir = new File(root + "/zitrone/de/gooddev/backend");
+    File prodDir = new File(root + "/itrone/de/gooddev/backend");
     if (prodDir.exists()) rootDir = prodDir;
 
     Collection<File> collection = FileUtils.listFiles(rootDir, new String[] {"class"}, true);

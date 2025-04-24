@@ -56,7 +56,7 @@ public class HanniResourceCenter extends VerticalLayout {
         boolean completed = tasks.stream().allMatch(t -> t.completed);
         if (completed) {
             // Runnable runnable = () -> notificationsService.sendMessage("chatMessage.accountConfirmation",
-            //         ChatMessage.ZITRONE_SUPPORT, user.id);
+            //         ChatMessage.Sitrone_SUPPORT, user.id);
             // message = addMessage("hanni.message03", runnable);
             message.scrollIntoView();
         }

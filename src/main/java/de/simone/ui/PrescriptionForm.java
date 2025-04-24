@@ -15,7 +15,7 @@ import io.quarkus.panache.common.Sort;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.inject.spi.CDI;
 
-@RolesAllowed({"Zitrone.master", "Prescription.edit"})
+@RolesAllowed({"Sitrone.master", "Prescription.edit"})
 @Route(value = "Prescription", layout = MainLayout.class)
 public class PrescriptionForm extends TAForm<Prescription> {
 

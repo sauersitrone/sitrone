@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.dom.*;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.auth.*;
- 
+
 import de.simone.*;
 import de.simone.backend.*;
 import de.simone.ui.components.*;
@@ -25,12 +25,12 @@ public class TamagotchiChat extends VerticalLayout
   private Paragraph paragraph;
   private Adult adult;
   private Tamagotchi tamagotchi;
-  private TTimer timer; 
+  private TTimer timer;
   private Span status;
   private MessageInput messageInput;
 
   @Inject
-ChatLogsService chatLogsService;
+  ChatLogsService chatLogsService;
 
   public TamagotchiChat() {
     setSpacing(false);
@@ -56,7 +56,7 @@ ChatLogsService chatLogsService;
     clean.addClickListener(e -> tamagotchi.clean());
     HorizontalLayout horizontalLayout = new HorizontalLayout(eat, play, wakeUp, sleep, clean);
     add(horizontalLayout);
- 
+
     status = new Span();
     add(status);
 

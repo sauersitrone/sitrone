@@ -15,7 +15,7 @@ import de.simone.backend.TamagotchiesService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "Tamagotchies"})
+@RolesAllowed({"Sitrone.master", "Tamagotchies"})
 @Route(value = "Tamagotchies", layout = MainLayout.class)
 public class TamagotchiesView extends TAView<Tamagotchi> {
 

@@ -11,7 +11,7 @@ import de.simone.backend.Adult;
 import de.simone.ui.components.FileLoaderSimple;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({"Zitrone.master", "Adult.edit"})
+@RolesAllowed({"Sitrone.master", "Adult.edit"})
 @Route(value = "Adult", layout = MainLayout.class)
 public class AdultForm extends TAForm<Adult> {
 

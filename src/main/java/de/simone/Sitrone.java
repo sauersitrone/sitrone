@@ -17,40 +17,40 @@ import io.vertx.ext.web.handler.StaticHandler;
 import jakarta.enterprise.event.Observes;
 
 @Theme("vaadin+")
-@PWA(name = "Zitrone", shortName = "Zitrone", offlineResources = {})
+@PWA(name = "Sitrone", shortName = "Sitrone", offlineResources = {})
 @NpmPackage(value = "@vaadin-component-factory/vcf-nav", version = "1.0.6")
 
-public class Zitrone implements AppShellConfigurator {
+public class Sitrone implements AppShellConfigurator {
 
     @ConfigProperty(name = "quarkus.hibernate-orm.jdbc.timezone")
     String jdbcTimezone;
 
-    @ConfigProperty(name = "zitrone.timezone")
-    String zitroneTimezone;
+    @ConfigProperty(name = "Sitrone.timezone")
+    String sitroneTimezone;
 
-    @ConfigProperty(name = "zitrone.country")
+    @ConfigProperty(name = "Sitrone.country")
     String country;
 
-    @ConfigProperty(name = "zitrone.language")
+    @ConfigProperty(name = "Sitrone.language")
     String language;
 
-    @ConfigProperty(name = "zitrone.version")
+    @ConfigProperty(name = "Sitrone.version")
     public String version;
 
-    private static Zitrone zitrone;
+    private static Sitrone sitrone;
 
     public static void main(String... args) {
         Quarkus.run(args);
     }
 
-    public static Zitrone getInstance() {
-        return zitrone;
+    public static Sitrone getInstance() {
+        return sitrone;
     }
 
     
     void onStart(@Observes StartupEvent ev, Router router) throws Exception {
-        zitrone = this; // NOSONAR
-        TimeZone.setDefault(TimeZone.getTimeZone(zitroneTimezone));
+        sitrone = this; // NOSONAR
+        TimeZone.setDefault(TimeZone.getTimeZone(sitroneTimezone));
 
         router.route()
                 .method(HttpMethod.GET).method(HttpMethod.HEAD)

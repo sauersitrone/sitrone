@@ -9,7 +9,7 @@ import de.simone.UIUtils;
 import de.simone.backend.MessagingProvider;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({"Zitrone.master", "MessagingProvider.edit"})
+@RolesAllowed({"Sitrone.master", "MessagingProvider.edit"})
 @Route(value = "MessagingProvider", layout = MainLayout.class)
 public class MessagingProviderForm extends TAForm<MessagingProvider> {
 

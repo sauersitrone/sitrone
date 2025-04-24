@@ -11,7 +11,7 @@ import de.simone.UIUtils;
 import de.simone.backend.Event;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({"Zitrone.master", "Event.edit"})
+@RolesAllowed({"Sitrone.master", "Event.edit"})
 @Route(value = "Event", layout = MainLayout.class)
 public class EventForm extends TAForm<Event> {
 

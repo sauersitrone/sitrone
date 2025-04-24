@@ -10,7 +10,7 @@ import de.simone.backend.Tamagotchi;
 import de.simone.ui.components.FileLoaderSimple;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({"Zitrone.master", "Tamagotchi.edit"})
+@RolesAllowed({"Sitrone.master", "Tamagotchi.edit"})
 @Route(value = "Tamagotchi", layout = MainLayout.class)
 public class TamagotchiForm extends TAForm<Tamagotchi> {
 

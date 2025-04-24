@@ -15,7 +15,7 @@ import io.quarkus.panache.common.Sort;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({ "Zitrone.master" })
+@RolesAllowed({ "Sitrone.master" })
 @Route(value = "EndPoints", layout = MainLayout.class)
 public class EndPointsView extends TAView<EndPoint> {
 

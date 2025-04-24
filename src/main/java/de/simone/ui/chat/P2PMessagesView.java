@@ -22,7 +22,7 @@ import jakarta.annotation.security.*;
 import jakarta.inject.*;
 import jakarta.transaction.*;
 
-@RolesAllowed({ "Zitrone.master", "P2PMessagesView" })
+@RolesAllowed({ "Sitrone.master", "P2PMessagesView" })
 @Route(value = "P2PMessagesView", layout = MainLayout.class)
 public class P2PMessagesView extends HorizontalLayout implements BeforeEnterObserver, PropertyChangeListener {
 

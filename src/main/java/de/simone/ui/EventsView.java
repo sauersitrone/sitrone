@@ -15,7 +15,7 @@ import de.simone.backend.TAEntity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "Events"})
+@RolesAllowed({"Sitrone.master", "Events"})
 @Route(value = "Events", layout = MainLayout.class)
 public class EventsView extends TAView<Event> {
 

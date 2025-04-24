@@ -24,7 +24,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-@RolesAllowed({"Zitrone.master", "Adults"})
+@RolesAllowed({"Sitrone.master", "Adults"})
 @Route(value = "Adults", layout = MainLayout.class)
 public class AdultsView extends TAView<Adult> {
 

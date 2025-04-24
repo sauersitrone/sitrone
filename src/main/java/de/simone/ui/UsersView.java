@@ -30,7 +30,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-@RolesAllowed({"Zitrone.master", "Users"})
+@RolesAllowed({"Sitrone.master", "Users"})
 @Route(value = "Users", layout = MainLayout.class)
 public class UsersView extends TAView<User> {
 

@@ -14,7 +14,7 @@ import de.simone.components.list.ListItem;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "MessaginProviders"})
+@RolesAllowed({"Sitrone.master", "MessaginProviders"})
 @Route(value = "MessaginProviders", layout = MainLayout.class)
 public class MessaginProvidersView extends TAView<MessagingProvider> {
 

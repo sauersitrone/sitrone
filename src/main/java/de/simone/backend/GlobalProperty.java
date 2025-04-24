@@ -106,7 +106,7 @@ public class GlobalProperty extends TAEntity {
     @Transient
     public String url;
 
-    public static String getZitroneHost() {
+    public static String getSitroneHost() {
         String host = "";
         VaadinServletRequest request = (VaadinServletRequest) VaadinService.getCurrentRequest();
         // background can use this class too. background jobs dont have uri
@@ -128,6 +128,6 @@ public class GlobalProperty extends TAEntity {
     }
 
     public static String getUrl(String sufix) {
-        return GlobalProperty.getZitroneHost() + sufix;
+        return GlobalProperty.getSitroneHost() + sufix;
     }
 }

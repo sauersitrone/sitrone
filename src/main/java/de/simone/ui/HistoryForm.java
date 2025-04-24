@@ -10,7 +10,7 @@ import de.simone.UIUtils;
 import de.simone.backend.History;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({"Zitrone.master", "History.edit"})
+@RolesAllowed({"Sitrone.master", "History.edit"})
 @Route(value = "History", layout = MainLayout.class)
 public class HistoryForm extends TAForm<History> {
 

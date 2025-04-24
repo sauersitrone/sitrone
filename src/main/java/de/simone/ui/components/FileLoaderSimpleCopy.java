@@ -51,7 +51,7 @@ public class FileLoaderSimpleCopy extends CustomField<String> {
 
   public FileLoaderSimpleCopy(String fieldName, int sizeInMb, long helpType, String... extensions) {
     this.filesExt = Arrays.asList(extensions);
-    this.filePath = "zitrone.getInstance().publicMediaPath";
+    this.filePath = "Sitrone.getInstance().publicMediaPath";
     this.upload = UIUtils.getFileUpload(sizeInMb, extensions);
     upload.addSucceededListener(
         event -> {

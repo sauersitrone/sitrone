@@ -18,7 +18,7 @@ import de.simone.backend.RolesService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({ "Zitrone.master", "Roles" })
+@RolesAllowed({ "Sitrone.master", "Roles" })
 @Route(value = "Roles", layout = MainLayout.class)
 public class RolesView extends TAView<Role> {
 

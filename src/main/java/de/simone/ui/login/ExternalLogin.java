@@ -36,7 +36,7 @@ import de.mekaso.vaadin.addon.compani.effect.ExitEffect;
 import de.mekaso.vaadin.addon.compani.effect.Speed;
 import de.simone.SecurityUtils;
 import de.simone.UIUtils;
-import de.simone.Zitrone;
+import de.simone.Sitrone;
 import de.simone.backend.AuditLog;
 import de.simone.backend.AuthenticationResult;
 import de.simone.backend.ExternalLoginService;
@@ -93,7 +93,7 @@ public class ExternalLogin extends VerticalLayout
         resetSession();
         Select<String> languageSelect = UIUtils.getLanguageSelect();
 
-        Span versioLabel = new Span(Zitrone.getInstance().version);
+        Span versioLabel = new Span(Sitrone.getInstance().version);
         versioLabel.addClassNames(LumoUtility.TextColor.SECONDARY, LumoUtility.FontSize.XSMALL);
 
         Anchor anchor1 = new Anchor("https://www.gooddev.de/", getTranslation("aditionalLink.userContitions"));

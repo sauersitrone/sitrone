@@ -41,7 +41,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
     private HorizontalLayout toolBar;
     private User currentUser;
     private List<MenuItem> languageItems;
-    private Image zitroneLogo;
+    private Image sitroneLogo;
 
     @Inject
     UsersService usersService;
@@ -122,7 +122,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
     }
 
     private void addDrawerContent() {
-        zitroneLogo = UIUtils.getAppLogo(Lumo.LIGHT);
+        sitroneLogo = UIUtils.getAppLogo(Lumo.LIGHT);
         Span appName = new Span("Vaadin+");
         appName.addClassNames(FontSize.LARGE, FontWeight.SEMIBOLD);
 
@@ -290,7 +290,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
 
     private void changeTheme(String newTheme) {
         String logoName = "goodfunds-logo-" + newTheme;
-        zitroneLogo.setSrc(UIUtils.ICON_PATH + logoName + ".svg");
+        sitroneLogo.setSrc(UIUtils.ICON_PATH + logoName + ".svg");
         currentUser.preferredTheme = newTheme;
         ThemeList themeList = UI.getCurrent().getElement().getThemeList();
         themeList.clear();

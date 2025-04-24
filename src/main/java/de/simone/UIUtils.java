@@ -347,7 +347,7 @@ public class UIUtils {
   }
 
   public static Anchor getAnchorButton(String bundleId, String href, ButtonVariant variant) {
-    String href2 = GlobalProperty.getZitroneHost() + href;
+    String href2 = GlobalProperty.getSitroneHost() + href;
     Button button = new Button(TranslationProvider.getTranslation(bundleId));
     if (variant != null) button.addThemeVariants(variant);
 

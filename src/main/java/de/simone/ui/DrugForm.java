@@ -14,7 +14,7 @@ import de.simone.ui.components.TColorPicker;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "Drug.edit"})
+@RolesAllowed({"Sitrone.master", "Drug.edit"})
 @Route(value = "Drug", layout = MainLayout.class)
 public class DrugForm extends TAForm<Drug> {
 

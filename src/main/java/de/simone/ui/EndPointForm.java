@@ -10,7 +10,7 @@ import de.simone.backend.EndPointsService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master"})
+@RolesAllowed({"Sitrone.master"})
 @Route(value = "EndPoint", layout = MainLayout.class)
 public class EndPointForm extends TAForm<EndPoint>  {
 

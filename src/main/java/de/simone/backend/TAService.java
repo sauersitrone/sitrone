@@ -348,7 +348,7 @@ public abstract class TAService<E extends TAEntity> {
             // ownership
             Long owner2 = owner;
             // redirect ownership for know entities. this files are read direct from
-            // zitrone
+            // Sitrone
             // if (clazz.isAssignableFrom(Country.class) || clazz.isAssignableFrom(Currency.class)
             //         || clazz.isAssignableFrom(EndPoint.class)) {
             //     owner2 = Account.getGoodDevId();
@@ -363,7 +363,7 @@ public abstract class TAService<E extends TAEntity> {
                 baseParms.putAll(parameters.map());
             }
 
-            // access from zitrone platform don't need filter by ownerId or isLive
+            // access from Sitrone platform don't need filter by ownerId or isLive
             if (owner == null) {
                 baseQuery = query;
                 baseParms.clear();

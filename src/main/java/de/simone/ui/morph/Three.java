@@ -13,7 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 @Tag("div")
 // @JsModule("./misc/three-test.js")
 @JsModule("./misc/morph.js")
-@RolesAllowed({"Zitrone.master", "Three"})
+@RolesAllowed({"Sitrone.master", "Three"})
 @NpmPackage(value = "three", version = "0.174.0 ")
 @Route(value = "Three", layout = MainLayout.class)
 public class Three extends Component implements AfterNavigationListener {

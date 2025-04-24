@@ -18,7 +18,7 @@ import io.quarkus.panache.common.Sort;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.inject.spi.CDI;
 
-@RolesAllowed({ "Zitrone.master", "User.edit" })
+@RolesAllowed({ "Sitrone.master", "User.edit" })
 @Route(value = "User", layout = MainLayout.class)
 public class UserForm extends TAForm<User>  {
 

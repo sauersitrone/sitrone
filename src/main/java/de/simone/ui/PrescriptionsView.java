@@ -17,7 +17,7 @@ import io.quarkus.panache.common.Parameters;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "Prescriptions"})
+@RolesAllowed({"Sitrone.master", "Prescriptions"})
 @Route(value = "Prescriptions", layout = MainLayout.class)
 public class PrescriptionsView extends TAView<Prescription> implements HasUrlParameter<Long> {
 

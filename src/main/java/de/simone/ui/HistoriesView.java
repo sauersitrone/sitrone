@@ -17,7 +17,7 @@ import io.quarkus.panache.common.Parameters;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "Histories"})
+@RolesAllowed({"Sitrone.master", "Histories"})
 @Route(value = "Histories", layout = MainLayout.class)
 public class HistoriesView extends TAView<History> implements HasUrlParameter<Long> {
 

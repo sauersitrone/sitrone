@@ -13,7 +13,7 @@ import de.simone.backend.DrugsService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Zitrone.master", "Drugs"})
+@RolesAllowed({"Sitrone.master", "Drugs"})
 @Route(value = "Drugs", layout = MainLayout.class)
 public class DrugsView extends TAView<Drug> {
 

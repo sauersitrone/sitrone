@@ -23,7 +23,7 @@ import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({ "Zitrone.master", "Role.edit" })
+@RolesAllowed({ "Sitrone.master", "Role.edit" })
 @Route(value = "Role")
 public class RoleForm extends TAForm<Role> {
 
@@ -82,9 +82,9 @@ public class RoleForm extends TAForm<Role> {
         // no edit for spetial roles
         roleName.setReadOnly(entity.isSpetialRole());
 
-        // zitrone panel
+        // sitrone panel
         if (SecurityUtils.getLoggedUser().isAdmin())
-        addBodyComponets("separator.zitrone", isTemplate);
+        addBodyComponets("separator.sitrone", isTemplate);
 
         super.setEntity(entity);
     }
