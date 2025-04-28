@@ -44,6 +44,21 @@ public class Tamagotchi extends TAEntity {
     @Size(max = SIZE_NAMES)
     public String name;
 
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_NAMES)
+    public String personality;
+
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_NAMES)
+    public String strengths;
+
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_NAMES)
+    public String weaknesses;
+
     // @NotNull
     public String avatar;
 

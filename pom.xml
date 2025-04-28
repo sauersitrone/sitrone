@@ -112,10 +112,10 @@
             <artifactId>quarkus-flyway</artifactId>
         </dependency>
 
-        <!-- Flyway MariaDB/MySQL specific dependencies -->
+        <!-- Flyway PostgreSQL specific dependencies -->
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-mysql</artifactId>
+            <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
         <!-- Build time CDI dependency injection-->
