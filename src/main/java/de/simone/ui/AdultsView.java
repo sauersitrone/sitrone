@@ -33,6 +33,7 @@ public class AdultsView extends TAView<Adult> {
 
   public static final String ADULT_HISTORY = "action.adultHistory";
   public static final String ADULT_PRESCRIPTIONS = "action.adultPrescriptions";
+  public static final String ADULT_FAMILY = "action.adultFamily";
   public static final String ADULT_TEST_MESSAGING = "action.adultTestMessaging";
 
   public AdultsView() {
@@ -91,9 +92,9 @@ public class AdultsView extends TAView<Adult> {
         .setHeader(getTranslation("Adult.phone"))
         .setAutoWidth(true);
 
-    grid.addColumn(te -> te.birdthYear)
-        .setHeader(getTranslation("Adult.birdthYear"))
-        .setComparator(te -> te.birdthYear)
+    grid.addColumn(te -> UIUtils.getFormatedLocalDate(te.birdthDate))
+        .setHeader(getTranslation("Address.birdthDate"))
+        .setComparator(te -> te.birdthDate)
         .setTextAlign(ColumnTextAlign.END)
         .setAutoWidth(true);
   }
@@ -105,6 +106,8 @@ public class AdultsView extends TAView<Adult> {
         UIUtils.getAfterIcon(MaterialIcons.EVENT_NOTE.create(), ADULT_HISTORY, UIUtils.EDIT_ACTION);
     Icon recepts =
         UIUtils.getAfterIcon(MaterialIcons.MEDICATION.create(), ADULT_PRESCRIPTIONS, UIUtils.EDIT_ACTION);
+    Icon family =
+        UIUtils.getAfterIcon(MaterialIcons.FAMILY_RESTROOM.create(), ADULT_FAMILY, UIUtils.EDIT_ACTION);
 
     // Icon testMessaging =
     //     UIUtils.getAfterIcon(
@@ -114,7 +117,7 @@ public class AdultsView extends TAView<Adult> {
         UIUtils.getAfterIcon(
             VaadinIcon.PAPERPLANE.create(), ADULT_TEST_MESSAGING, UIUtils.EDIT_ACTION);
 
-    setToolBarComponents(UIUtils.getToolBar(this, history, recepts, testMessaging));
+    setToolBarComponents(UIUtils.getToolBar(this, history, recepts, family, testMessaging));
     removeToolBarComponents(UIUtils.DUPLICATE_ACTION);
     SerializablePredicate<Adult> filter =
         entity -> {
@@ -154,6 +157,21 @@ public class AdultsView extends TAView<Adult> {
 
     if (cmpId.startsWith(ADULT_PRESCRIPTIONS)) {
       boolean ok = SecurityUtils.hasAccess(taEntity.getSimpleName() + ".adult.prescription");
+      if (!ok) {
+        UIUtils.showErrorNotification(AUTH_ERROR_MSG);
+        return;
+      }
+
+      Adult entity = getSelectedItem();
+      if (entity == null) return;
+
+      String url = this.viewUrl = RouteUtil.resolve(context, PrescriptionsView.class);
+      UI.getCurrent().navigate(url + "/" + entity.id);
+      return;
+    }
+
+    if (cmpId.startsWith(ADULT_PRESCRIPTIONS)) {
+      boolean ok = SecurityUtils.hasAccess(taEntity.getSimpleName() + ".adult.family");
       if (!ok) {
         UIUtils.showErrorNotification(AUTH_ERROR_MSG);
         return;

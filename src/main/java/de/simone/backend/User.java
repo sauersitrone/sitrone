@@ -15,6 +15,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.opencsv.bean.*;
 
 import dev.samstevens.totp.code.CodeGenerator;
 import dev.samstevens.totp.code.DefaultCodeGenerator;
@@ -150,9 +151,37 @@ public class User extends TAEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private List<HanniTask> tasks = new ArrayList<>();
 
-    @ElementCollection
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> internalActions = new ArrayList<>();
+
+    @NotNull
+    @CsvBindByName
+    @OneOfStrings({ Address.WITHOUT, Address.DAME, Address.MISTER })
+    public String salutation = Address.WITHOUT;
+    
+    @NotBlank
+    @NotEmpty
+    @CsvBindByName
+    @Size(max = SIZE_DESCRIPTIONS)
+    public String street;
+
+    @NotBlank
+    @NotEmpty
+    @CsvBindByName
+    @Size(max = 5)
+    public String postcode;
+
+    @NotBlank
+    @NotEmpty
+    @CsvBindByName
+    @Size(max = SIZE_NAMES)
+    public String city;
+
+    @NotNull
+    @NotBlank
+    @CsvBindByName
+    @Size(max = SIZE_2)
+    public String country = "DE";
 
     @Transient
     public String confirmationCode;

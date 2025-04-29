@@ -1,5 +1,6 @@
 package de.simone.backend;
 
+import java.time.*;
 import java.util.*;
 
 import org.hibernate.annotations.*;
@@ -13,9 +14,14 @@ import net.andreinc.jbvext.annotations.misc.*;
 @Table(name = "Adults")
 public class Adult extends TAEntity {
 
-    public static final String DAME = "DAME";
-    public static final String MISTER = "MISTER";
-    public static final String WITHOUT = "WITHOUT";
+    public static final String WOMAN = "WOMAN";
+    public static final String MAN = "MAN";
+
+    public static final String NOESPEC = "NOESPEC";
+    public static final String SINGLE = "SINGLE";
+    public static final String MARRIED = "MARRIED";
+    public static final String DIVORCED = "DIVORCED";
+    public static final String WIDOW = "WIDOW";
 
     public static final String CARER = "CARER";
     public static final String FAMILY = "FAMILY";
@@ -32,8 +38,12 @@ public class Adult extends TAEntity {
     public String relationship = CARER_AND_FAMILY;
 
     @NotNull
-    @OneOfStrings({ WITHOUT, DAME, MISTER })
-    public String salutation = WITHOUT;
+    @OneOfStrings({ WOMAN, MAN })
+    public String gender = MAN;
+
+    @NotNull
+    @OneOfStrings({ NOESPEC, SINGLE , MARRIED , DIVORCED, WIDOW })
+    public String maritalStatus = NOESPEC;
 
     @NotBlank
     @NotEmpty
@@ -60,20 +70,15 @@ public class Adult extends TAEntity {
     public String phone;
 
     @NotEmpty
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<String> interests = new HashSet<>();
-
-    @NotNull
-    @OneOfStrings({ EN, DE })
-    public String genre = DE;
 
     @NotNull
     @OneOfStrings({ EN, DE })
     public String preferredLanguage = DE;
 
     @NotNull
-    @Min(value = 1900)
-    public Integer birdthYear;
+    public LocalDate birdthDate;
 
     public String getFullName() {
         return Address.getFullName(firstName, lastName);

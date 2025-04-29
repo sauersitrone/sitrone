@@ -20,13 +20,16 @@ import jakarta.enterprise.inject.spi.CDI;
 
 @RolesAllowed({ "Sitrone.master", "User.edit" })
 @Route(value = "User", layout = MainLayout.class)
-public class UserForm extends TAForm<User>  {
+public class UserForm extends TAForm<User> {
 
     private TextField firstName;
     private TextField lastName;
     private TextField createdAt2;
     private TextField phone;
     private TextField userName;
+    private TextField street;
+    private TextField city;
+    private TextField postcode;
     private EmailField email;
     private Checkbox isEnabled;
     private Checkbox isEmailVerified;
@@ -37,6 +40,8 @@ public class UserForm extends TAForm<User>  {
     private Select<MessagingProvider> messagingProvider;
     private Select<String> status;
     private FileLoaderSimple avatar;
+    private Select<String> country;
+    private Select<String> salutation;
 
     public UserForm() {
         avatar = new FileLoaderSimple("User.avatar");
@@ -62,16 +67,26 @@ public class UserForm extends TAForm<User>  {
         createdAt2.setReadOnly(true);
         status = UIUtils.getSelect("user.status", "User.status");
 
-        addBodyComponets("separator.general", false,  firstName, lastName, userName, new HorizontalLayout(email, phone), messagingProvider,preferredLanguage, avatar);
-        addBodyComponets("user.separator2", false,  isEnabledWrap, isEmailVerifiedWrap, isMfaExemptWrap, isTotpRegistredWrap,
-                isTemporalPassWrap);
+        street = UIUtils.getTextField("Address.street");
+        city = UIUtils.getTextField("Address.city");
+        postcode = UIUtils.getTextField("Address.postcode");
+        country = UIUtils.getCountryCodeSelect("Address.country");
+        salutation = UIUtils.getSelect("salutations", "Address.salutation");
+
+        addBodyComponets("separator.general", false, userName, messagingProvider, preferredLanguage, avatar);
+        addBodyComponets("user.separator1", false, salutation, new HorizontalLayout(firstName, lastName),
+                new HorizontalLayout(street, city), new HorizontalLayout(postcode, country),
+                new HorizontalLayout(email, phone));
+        addBodyComponets("user.separator2", false, isEnabledWrap, isEmailVerifiedWrap, isMfaExemptWrap,
+                isTotpRegistredWrap, isTemporalPassWrap, status);
 
     }
 
     @Override
     public void setEntity(User entity) {
-            MessagingProvidersService   messagingProvidersService = CDI.current().select(MessagingProvidersService.class).get();
-            messagingProvider.setItems(messagingProvidersService.listAll(Sort.ascending("provider")));
-            super.setEntity(entity);
+        MessagingProvidersService messagingProvidersService = CDI.current().select(MessagingProvidersService.class)
+                .get();
+        messagingProvider.setItems(messagingProvidersService.listAll(Sort.ascending("provider")));
+        super.setEntity(entity);
     }
 }

@@ -21,7 +21,6 @@ public class AddressForm extends GroupPanel {
     private Select<String> country;
     private Select<String> salutation;
     private Select<String> title;
-    // private Select<String> type;
     private EmailField email;
     private TextField phone;
     private FileLoaderSimple foto;
