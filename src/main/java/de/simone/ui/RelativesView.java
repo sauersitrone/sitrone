@@ -9,30 +9,29 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
-import de.simone.MainLayout;
-import de.simone.UIUtils;
+
+import de.simone.*;
 import de.simone.backend.*;
 import io.quarkus.panache.common.Parameters;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({ "Sitrone.master", "family" })
-@Route(value = "family", layout = MainLayout.class)
-public class FamilyView extends TAView<Family> implements HasUrlParameter<Long> {
+@RolesAllowed({ "Sitrone.master", "Relatives" })
+@Route(value = "Relatives", layout = MainLayout.class)
+public class RelativesView extends TAView<Relative> implements HasUrlParameter<Long> {
 
-  public static final String Prescription_ACTION = "action.Prescription";
   protected Long adultId;
 
   @Inject
-  FamiliesService familiesService;
+  RelativesService familiesService;
 
-  public FamilyView() {
-    this.grid = UIUtils.getGrid(Family.class);
+  public RelativesView() {
+    this.grid = UIUtils.getGrid(Relative.class);
 
     // mobile
     grid.addColumn(
         new ComponentRenderer<>(
-            ge -> {
+            te -> {
               return new Span();
 
               // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +
@@ -41,7 +40,7 @@ public class FamilyView extends TAView<Family> implements HasUrlParameter<Long> 
               // mli.setAvatar(ge.firstName + " " + ge.lastName, ge.avatar);
               // return mli;
             }))
-        .setHeader(getTranslation("Address.fullName"))
+        .setHeader(getTranslation("Person.fullName"))
         .setComparator(te -> Address.getFullName(te.firstName, te.lastName))
         .setSortable(true)
         .setAutoWidth(true);
@@ -49,24 +48,19 @@ public class FamilyView extends TAView<Family> implements HasUrlParameter<Long> 
     // desktop
     UIUtils.setIdColumn(grid);
 
-    grid.addColumn(new ComponentRenderer<>(UIUtils::getAdutRender))
-        .setHeader(getTranslation("Address.fullName"))
+    grid.addColumn(new ComponentRenderer<>(UIUtils::getRelativeRender))
+        .setHeader(getTranslation("Person.fullName"))
         .setComparator(te -> Address.getFullName(te.firstName, te.lastName))
         .setSortable(true)
         .setAutoWidth(true);
 
-    grid.addColumn(te -> te.email)
-        .setComparator(te -> te.email)
-        .setHeader(getTranslation("Address.email"))
-        .setAutoWidth(true);
-
-    grid.addColumn(te -> te.phone)
-        .setComparator(te -> te.phone)
-        .setHeader(getTranslation("Address.phone"))
+    grid.addColumn(te -> TranslationProvider.getString("relative.relation", te.relation))
+        .setHeader(getTranslation("Person.relation"))
+        .setComparator(te -> te.relation)
         .setAutoWidth(true);
 
     grid.addColumn(te -> UIUtils.getFormatedLocalDate(te.birdthDate))
-        .setHeader(getTranslation("Address.birdthDate"))
+        .setHeader(getTranslation("Person.birdthDate"))
         .setComparator(te -> te.birdthDate)
         .setTextAlign(ColumnTextAlign.END)
         .setAutoWidth(true);
@@ -75,27 +69,23 @@ public class FamilyView extends TAView<Family> implements HasUrlParameter<Long> 
   @Override
   public void setParameter(BeforeEvent event, @OptionalParameter Long adultId) {
     this.adultId = adultId;
-    init(Family.class, PrescriptionForm.class, familiesService);
+    init(Relative.class, RelativeForm.class, familiesService);
 
-    SerializablePredicate<Family> filter = entity -> {
+    SerializablePredicate<Relative> filter = entity -> {
       String searchTerm = searchField.getValue().trim().toLowerCase().toLowerCase();
       if (searchTerm.isEmpty())
         return true;
 
       boolean m1 = entity.firstName.toLowerCase().contains(searchTerm);
       boolean m2 = entity.lastName.toString().toLowerCase().contains(searchTerm);
-      boolean m3 = entity.email.toLowerCase().contains(searchTerm);
-      boolean m4 = entity.phone.toLowerCase().contains(searchTerm);
 
-      return m1 || m2 || m3 || m4;
+      return m1 || m2;
     };
     setItems(familiesService.list("adultId = :adultId", Parameters.with("adultId", adultId)), filter);
   }
 
   @Override
   public void beforeEnter(BeforeEnterEvent event) {
-    // inthis class, the logic is on setParameter(BeforeEvent event,
-    // @OptionalParameter Long
-    // adultId) executed
+    //
   }
 }

@@ -14,7 +14,7 @@ import de.simone.backend.Adult;
 import de.simone.ui.components.FileLoaderSimple;
 import jakarta.annotation.security.RolesAllowed;
 
-@RolesAllowed({ "Sitrone.master", "Adult.edit" })
+@RolesAllowed({ "Sitrone.master", "Person.edit" })
 @Route(value = "Adult", layout = MainLayout.class)
 public class AdultForm extends TAForm<Adult> {
 
@@ -31,18 +31,18 @@ public class AdultForm extends TAForm<Adult> {
   private DatePicker  birdthDate;
 
   public AdultForm() {
-    avatar = new FileLoaderSimple("Adult.avatar");
-    firstName = UIUtils.getTextField("Adult.firstName");
-    lastName = UIUtils.getTextField("Adult.lastName");
-    email = UIUtils.getEmailField("Adult.email");
-    phone = UIUtils.getTextField("Adult.phone");
+    avatar = new FileLoaderSimple("Person.avatar");
+    firstName = UIUtils.getTextField("Person.firstName");
+    lastName = UIUtils.getTextField("Person.lastName");
+    email = UIUtils.getEmailField("Person.email");
+    phone = UIUtils.getTextField("Person.phone");
     phone.setRequiredIndicatorVisible(false);
-    preferredLanguage = UIUtils.getSelect("languages", "Adult.preferredLanguage");
-    relationship = UIUtils.getSelect("adult.relationship", "Adult.relationship");
-    gender = UIUtils.getSelect("adult.gender", "Adult.gender");
-    maritalStatus = UIUtils.getSelect("adult.maritalStatus", "Adult.maritalStatus");
-    birdthDate = UIUtils.getDatePicker("Address.birdthDate");
-    interests = UIUtils.getMultiSelectComboBox("adult.interests", "Adult.interests", false);
+    preferredLanguage = UIUtils.getSelect("languages", "Person.preferredLanguage");
+    relationship = UIUtils.getSelect("adult.relationship", "Person.relationship");
+    gender = UIUtils.getSelect("person.gender", "Person.gender");
+    maritalStatus = UIUtils.getSelect("person.maritalStatus", "Person.maritalStatus");
+    birdthDate = UIUtils.getDatePicker("Person.birdthDate");
+    interests = UIUtils.getMultiSelectComboBox("person.interests", "Person.interests", false);
 
     addBodyComponets(
         UIUtils.getHorizontalLayout2(firstName, lastName),

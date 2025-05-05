@@ -64,7 +64,7 @@ public class User extends TAEntity {
     public static final String VERIFIED = "VERIFIED";
 
     public static final String CARER = "CARER"; 
-    public static final String FAMILY = "FAMILY";
+    public static final String RELATIVE = "RELATIVE";
     
     public static final String VERIFY_EMAIL = "VERIFY_EMAIL"; 
     public static final String VERIFY_OTP = "VERIFY_OTP"; 
@@ -144,7 +144,7 @@ public class User extends TAEntity {
     public String status = INCOMPLETE;
 
     @NotNull
-    @OneOfStrings({ CARER,FAMILY})
+    @OneOfStrings({ CARER,RELATIVE})
     public String type = CARER;
 
     @JsonIgnore

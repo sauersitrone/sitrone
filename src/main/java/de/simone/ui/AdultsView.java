@@ -33,7 +33,7 @@ public class AdultsView extends TAView<Adult> {
 
   public static final String ADULT_HISTORY = "action.adultHistory";
   public static final String ADULT_PRESCRIPTIONS = "action.adultPrescriptions";
-  public static final String ADULT_FAMILY = "action.adultFamily";
+  public static final String ADULT_RELATIVES = "action.adultRelatives";
   public static final String ADULT_TEST_MESSAGING = "action.adultTestMessaging";
 
   public AdultsView() {
@@ -42,7 +42,7 @@ public class AdultsView extends TAView<Adult> {
     // mobile
     grid.addColumn(
             new ComponentRenderer<>(
-                ge -> {
+                te -> {
                   return new Span();
 
                   // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +
@@ -51,7 +51,7 @@ public class AdultsView extends TAView<Adult> {
                   // mli.setAvatar(ge.firstName + " " + ge.lastName, ge.avatar);
                   // return mli;
                 }))
-        .setHeader(getTranslation("Adult.fullName"))
+        .setHeader(getTranslation("Person.fullName"))
         .setComparator(te -> te.firstName + " " + te.lastName)
         .setSortable(true)
         .setAutoWidth(true);
@@ -77,23 +77,23 @@ public class AdultsView extends TAView<Adult> {
     //     .setFlexGrow(0);
 
     grid.addColumn(new ComponentRenderer<>(UIUtils::getAdutRender))
-        .setHeader(getTranslation("Adult.fullName"))
+        .setHeader(getTranslation("Person.fullName"))
         .setComparator(te -> te.firstName + " " + te.lastName)
         .setSortable(true)
         .setAutoWidth(true);
 
     grid.addColumn(te -> te.email)
         .setComparator(te -> te.email)
-        .setHeader(getTranslation("Adult.email"))
+        .setHeader(getTranslation("Person.email"))
         .setAutoWidth(true);
 
     grid.addColumn(te -> te.phone)
         .setComparator(te -> te.phone)
-        .setHeader(getTranslation("Adult.phone"))
+        .setHeader(getTranslation("Person.phone"))
         .setAutoWidth(true);
 
     grid.addColumn(te -> UIUtils.getFormatedLocalDate(te.birdthDate))
-        .setHeader(getTranslation("Address.birdthDate"))
+        .setHeader(getTranslation("Person.birdthDate"))
         .setComparator(te -> te.birdthDate)
         .setTextAlign(ColumnTextAlign.END)
         .setAutoWidth(true);
@@ -107,7 +107,7 @@ public class AdultsView extends TAView<Adult> {
     Icon recepts =
         UIUtils.getAfterIcon(MaterialIcons.MEDICATION.create(), ADULT_PRESCRIPTIONS, UIUtils.EDIT_ACTION);
     Icon family =
-        UIUtils.getAfterIcon(MaterialIcons.FAMILY_RESTROOM.create(), ADULT_FAMILY, UIUtils.EDIT_ACTION);
+        UIUtils.getAfterIcon(MaterialIcons.FAMILY_RESTROOM.create(), ADULT_RELATIVES, UIUtils.EDIT_ACTION);
 
     // Icon testMessaging =
     //     UIUtils.getAfterIcon(
@@ -170,8 +170,8 @@ public class AdultsView extends TAView<Adult> {
       return;
     }
 
-    if (cmpId.startsWith(ADULT_PRESCRIPTIONS)) {
-      boolean ok = SecurityUtils.hasAccess(taEntity.getSimpleName() + ".adult.family");
+    if (cmpId.startsWith(ADULT_RELATIVES)) {
+      boolean ok = SecurityUtils.hasAccess(taEntity.getSimpleName() + ".adult.relative");
       if (!ok) {
         UIUtils.showErrorNotification(AUTH_ERROR_MSG);
         return;
@@ -180,7 +180,7 @@ public class AdultsView extends TAView<Adult> {
       Adult entity = getSelectedItem();
       if (entity == null) return;
 
-      String url = this.viewUrl = RouteUtil.resolve(context, PrescriptionsView.class);
+      String url = this.viewUrl = RouteUtil.resolve(context, RelativesView.class);
       UI.getCurrent().navigate(url + "/" + entity.id);
       return;
     }

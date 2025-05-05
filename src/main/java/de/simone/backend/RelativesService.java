@@ -6,14 +6,14 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
 @ApplicationScoped
-public class FamiliesService  extends TAService<Family> {
+public class RelativesService  extends TAService<Relative> {
 
-  public FamiliesService () {
-    super(Family.class);
+  public RelativesService () {
+    super(Relative.class);
   }
 
   @Override
-  public Family get(Long id) throws WebApplicationException {
+  public Relative get(Long id) throws WebApplicationException {
     return getImpl(id);
   }
 
@@ -25,7 +25,7 @@ public class FamiliesService  extends TAService<Family> {
 
   @Override
   @Transactional
-  public Response save(Family entity) {
+  public Response save(Relative entity) {
     return saveImpl(entity);
   }
 

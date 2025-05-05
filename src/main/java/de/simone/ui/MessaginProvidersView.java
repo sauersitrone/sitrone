@@ -26,8 +26,8 @@ public class MessaginProvidersView extends TAView<MessagingProvider> {
     // mobile
     grid.addColumn(
             new ComponentRenderer<>(
-                ge -> {
-                  ListItem item = UIUtils.getListItem(ge.getName(), null, ge.getIcon());
+                te -> {
+                  ListItem item = UIUtils.getListItem(te.getName(), null, te.getIcon());
                   return     item;
                 }))
         .setHeader(getTranslation("MessagingProvider.name"))

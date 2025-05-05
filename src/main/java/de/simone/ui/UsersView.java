@@ -56,7 +56,7 @@ public class UsersView extends TAView<User> {
     // mobile
     grid.addColumn(
             new ComponentRenderer<>(
-                ge -> {
+                te -> {
                   return new Span();
 
                   // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +
@@ -90,12 +90,12 @@ public class UsersView extends TAView<User> {
         .setAutoWidth(true);
 
     grid.addColumn(
-            new ComponentRenderer<>(ge -> UIUtils.getBooleanBadge(ge.isEnabled, true, false)))
+            new ComponentRenderer<>(te -> UIUtils.getBooleanBadge(te.isEnabled, true, false)))
         .setHeader(getTranslation("User.isEnabled"))
         .setComparator(te -> te.isEnabled)
         .setAutoWidth(true);
 
-    grid.addColumn(ge -> UIUtils.getFormatedLocalDateTime(ge.lastSignIn))
+    grid.addColumn(te -> UIUtils.getFormatedLocalDateTime(te.lastSignIn))
         .setComparator(te -> te.lastSignIn)
         .setHeader(getTranslation("User.lastSignIn"))
         .setTextAlign(ColumnTextAlign.END)

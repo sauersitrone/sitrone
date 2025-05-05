@@ -32,7 +32,7 @@ public class PrescriptionsView extends TAView<Prescription> implements HasUrlPar
     // mobile
     grid.addColumn(
             new ComponentRenderer<>(
-                ge -> {
+                te -> {
                   return new Span();
 
                   // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +

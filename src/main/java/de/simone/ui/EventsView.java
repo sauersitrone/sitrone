@@ -27,7 +27,7 @@ public class EventsView extends TAView<Event> {
     // mobile
     grid.addColumn(
             new ComponentRenderer<>(
-                ge -> {
+                te -> {
                   return new Span();
 
                   // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +

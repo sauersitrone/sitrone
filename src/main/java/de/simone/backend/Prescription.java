@@ -19,75 +19,78 @@ import net.andreinc.jbvext.annotations.misc.OneOfStrings;
 @Entity
 public class Prescription extends TAEntity {
 
-  public static final CronDefinition CRON_DEFINITION =
-      CronDefinitionBuilder.instanceDefinitionFor(CronType.CRON4J);
+    public static final CronDefinition CRON_DEFINITION = CronDefinitionBuilder.instanceDefinitionFor(CronType.CRON4J);
 
-  public static final String ONCE = "ONCE";
-  public static final String DAILY = "DAILY";
-  public static final String WEEK_DAY = "WEEK_DAY";
-  public static final String WEEKLY = "WEEKLY";
-  // public static final String MONTHLY_DAY = "MONTHLY_DAY";
-  public static final String MONTHLY_DATE = "MONTHLY_DATE";
-  // public static final String ANNUALLY = "ANNUALLY";
+    public static final String ONCE = "ONCE";
+    public static final String DAILY = "DAILY";
+    public static final String WEEK_DAY = "WEEK_DAY";
+    public static final String WEEKLY = "WEEKLY";
+    // public static final String MONTHLY_DAY = "MONTHLY_DAY";
+    public static final String MONTHLY_DATE = "MONTHLY_DATE";
+    // public static final String ANNUALLY = "ANNUALLY";
 
-  public static final String PT1M = "PT1M";
-  public static final String PT5M = "PT5M";
-  public static final String PT15M = "PT15M";
-  public static final String PT30M = "PT30M";
-  public static final String PT1H = "PT1H";
-  public static final String PT4H = "PT4H";
-  public static final String PT24H = "PT24H";
+    public static final String PT1M = "PT1M";
+    public static final String PT5M = "PT5M";
+    public static final String PT15M = "PT15M";
+    public static final String PT30M = "PT30M";
+    public static final String PT1H = "PT1H";
+    public static final String PT4H = "PT4H";
+    public static final String PT24H = "PT24H";
 
-  @OneToOne public Drug drug;
+    @NotNull
+    public Long adultId;
 
-  @NotBlank
-  @NotEmpty
-  @Size(max = SIZE_DESCRIPTIONS)
-  public String description;
+    @OneToOne
+    public Drug drug;
 
-  // @NotBlank
-  // @NotEmpty
-  // @Size(max = SIZE_255)
-  // public String textReminder;
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_DESCRIPTIONS)
+    public String description;
 
-  @NotBlank
-  @NotEmpty
-  @Size(max = SIZE_DESCRIPTIONS)
-  public String cronString;
+    // @NotBlank
+    // @NotEmpty
+    // @Size(max = SIZE_255)
+    // public String textReminder;
 
-  @NotBlank
-  @NotEmpty
-  @Size(max = SIZE_255)
-  public String indications;
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_DESCRIPTIONS)
+    public String cronString;
 
-  @NotBlank
-  @NotEmpty
-  @Size(max = SIZE_255)
-  public String contraindications;
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_255)
+    public String indications;
 
-  @NotBlank
-  @NotEmpty
-  @Size(max = SIZE_DESCRIPTIONS)
-  public String dosage;
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_255)
+    public String contraindications;
 
-  @NotNull public LocalDateTime calendarWhen = LocalDateTime.now();
+    @NotBlank
+    @NotEmpty
+    @Size(max = SIZE_DESCRIPTIONS)
+    public String dosage;
 
-  @NotNull
-  @OneOfStrings({ONCE, DAILY, WEEK_DAY, WEEKLY, MONTHLY_DATE})
-  public String calendarRepeat = ONCE;
+    @NotNull
+    public LocalDateTime calendarWhen = LocalDateTime.now();
 
-  @NotNull
-  @OneOfStrings({PT1M, PT5M, PT15M, PT30M, PT1H, PT4H, PT24H})
-  public String calendarRemind = PT1M;
+    @NotNull
+    @OneOfStrings({ ONCE, DAILY, WEEK_DAY, WEEKLY, MONTHLY_DATE })
+    public String calendarRepeat = ONCE;
 
-  public Long adultId;
-  public Integer quantity;
+    @NotNull
+    @OneOfStrings({ PT1M, PT5M, PT15M, PT30M, PT1H, PT4H, PT24H })
+    public String calendarRemind = PT1M;
 
-  public String getCronDescription() {
-    CronParser parser = new CronParser(CRON_DEFINITION);
-    Cron cron = parser.parse(cronString);
-    CronDescriptor descriptor = CronDescriptor.instance(Locale.GERMANY);
-    String cDescription = descriptor.describe(cron);
-    return cDescription;
-  }
+    public Integer quantity;
+
+    public String getCronDescription() {
+        CronParser parser = new CronParser(CRON_DEFINITION);
+        Cron cron = parser.parse(cronString);
+        CronDescriptor descriptor = CronDescriptor.instance(Locale.GERMANY);
+        String cDescription = descriptor.describe(cron);
+        return cDescription;
+    }
 }

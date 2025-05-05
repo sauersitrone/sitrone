@@ -26,7 +26,6 @@ import de.simone.components.dialogs.*;
 import de.simone.ui.*;
 import de.simone.ui.chat.*;
 import de.simone.ui.components.*;
-import de.simone.ui.morph.*;
 import de.simone.utilities.*;
 import de.simone.views.components.*;
 import de.simone.views.templates.*;
@@ -137,15 +136,16 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
 
     private SideNav createComponentNavigation() {
         SideNav nav = new SideNav("Components");
-        nav.addItem(new SideNavItem(getTranslation("UsersView"), UsersView.class, LineAwesomeIcon.USER.create()));
-        nav.addItem(
-                new SideNavItem(getTranslation("AdultsView"), AdultsView.class, LineAwesomeIcon.ROBOT_SOLID.create()));
-        nav.addItem(
-                new SideNavItem(getTranslation("DrugsView"), DrugsView.class, LineAwesomeIcon.PILLS_SOLID.create()));
+        nav.addItem(new SideNavItem(getTranslation("UsersView"), UsersView.class,
+                LineAwesomeIcon.USER.create()));
+        nav.addItem(new SideNavItem(getTranslation("AdultsView"), AdultsView.class,
+                LineAwesomeIcon.ROBOT_SOLID.create()));
+        nav.addItem(new SideNavItem(getTranslation("DrugsView"), DrugsView.class,
+                LineAwesomeIcon.PILLS_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("EventsView"), EventsView.class,
                 LineAwesomeIcon.PLANE_ARRIVAL_SOLID.create()));
-        // nav.addItem(
-        //         new SideNavItem(getTranslation("three"), Three.class, LineAwesomeIcon.THERMOMETER_HALF_SOLID.create()));
+        nav.addItem(new SideNavItem(getTranslation("RelativesView"), "Relatives/199268075270145",
+                LineAwesomeIcon.PEOPLE_CARRY_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("MessaginProvidersView"), MessaginProvidersView.class,
                 LineAwesomeIcon.PAPER_PLANE.create()));
         nav.addItem(new SideNavItem(getTranslation("P2PMessagesView"), P2PMessagesView.class,
@@ -154,15 +154,17 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
                 LineAwesomeIcon.DOG_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("TamagotchiChat"), TamagotchiChat.class,
                 LineAwesomeIcon.CAT_SOLID.create()));
-        nav.addItem(new SideNavItem("PrescriptionsView ", "Prescriptions/199268075270145",
+        nav.addItem(new SideNavItem(getTranslation("PrescriptionsView"), "Prescriptions/199268075270145",
                 LineAwesomeIcon.PILLS_SOLID.create()));
         nav.addItem(
                 new SideNavItem("App bars", AppBarsView.class, LineAwesomeIcon.BARS_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Breadcrumbs", BreadcrumbsView.class, LineAwesomeIcon.BREAD_SLICE_SOLID.create()));
+                        "Breadcrumbs", BreadcrumbsView.class,
+                        LineAwesomeIcon.BREAD_SLICE_SOLID.create()));
         nav.addItem(
-                new SideNavItem("Checkboxes", CheckboxesView.class, LineAwesomeIcon.CHECK_SQUARE.create()));
+                new SideNavItem("Checkboxes", CheckboxesView.class,
+                        LineAwesomeIcon.CHECK_SQUARE.create()));
         nav.addItem(new SideNavItem("Dialogs", DialogsView.class, LineAwesomeIcon.WINDOWS.create()));
         nav.addItem(
                 new SideNavItem("Empty states", EmptyStatesView.class, LineAwesomeIcon.FILE.create()));
@@ -171,34 +173,44 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
                 new SideNavItem("Headers", HeadersView.class, LineAwesomeIcon.HEADING_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Highlights", HighlightsView.class, LineAwesomeIcon.CHART_LINE_SOLID.create()));
+                        "Highlights", HighlightsView.class,
+                        LineAwesomeIcon.CHART_LINE_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Input groups", InputGroupsView.class, LineAwesomeIcon.TERMINAL_SOLID.create()));
+                        "Input groups", InputGroupsView.class,
+                        LineAwesomeIcon.TERMINAL_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Key-value pairs", KeyValuePairsView.class, LineAwesomeIcon.KEY_SOLID.create()));
+                        "Key-value pairs", KeyValuePairsView.class,
+                        LineAwesomeIcon.KEY_SOLID.create()));
         nav.addItem(new SideNavItem("Lists", ListsView.class, LineAwesomeIcon.LIST_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Menu bars", MenuBarsView.class, LineAwesomeIcon.ELLIPSIS_V_SOLID.create()));
+                        "Menu bars", MenuBarsView.class,
+                        LineAwesomeIcon.ELLIPSIS_V_SOLID.create()));
         nav.addItem(
-                new SideNavItem("Navigation rail", NavRailView.class, LineAwesomeIcon.BARS_SOLID.create()));
+                new SideNavItem("Navigation rail", NavRailView.class,
+                        LineAwesomeIcon.BARS_SOLID.create()));
         nav.addItem(
-                new SideNavItem("Notifications", NotificationsView.class, LineAwesomeIcon.BELL.create()));
+                new SideNavItem("Notifications", NotificationsView.class,
+                        LineAwesomeIcon.BELL.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Radio buttons", RadioButtonsView.class, LineAwesomeIcon.CHECK_CIRCLE_SOLID.create()));
+                        "Radio buttons", RadioButtonsView.class,
+                        LineAwesomeIcon.CHECK_CIRCLE_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Search dialogs", SearchDialogsView.class, LineAwesomeIcon.SEARCH_SOLID.create()));
+                        "Search dialogs", SearchDialogsView.class,
+                        LineAwesomeIcon.SEARCH_SOLID.create()));
         nav.addItem(
                 new SideNavItem("Sidebar", SidebarsView.class, LineAwesomeIcon.COLUMNS_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Statuses", StatusesView.class, LineAwesomeIcon.INFO_CIRCLE_SOLID.create()));
+                        "Statuses", StatusesView.class,
+                        LineAwesomeIcon.INFO_CIRCLE_SOLID.create()));
         nav.addItem(
-                new SideNavItem("Steppers", SteppersView.class, LineAwesomeIcon.WALKING_SOLID.create()));
+                new SideNavItem("Steppers", SteppersView.class,
+                        LineAwesomeIcon.WALKING_SOLID.create()));
         nav.addItem(
                 new SideNavItem("Tabs", TabsView.class, LineAwesomeIcon.EXCHANGE_ALT_SOLID.create()));
         nav.addItem(new SideNavItem("Top nav", TopNavView.class, LineAwesomeIcon.BARS_SOLID.create()));
@@ -213,10 +225,12 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
                 new SideNavItem("Customers", CustomersView.class, LineAwesomeIcon.HANDSHAKE.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Dashboard º1", DashboardView1.class, LineAwesomeIcon.CHART_LINE_SOLID.create()));
+                        "Dashboard º1", DashboardView1.class,
+                        LineAwesomeIcon.CHART_LINE_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Dashboard º2", DashboardView2.class, LineAwesomeIcon.CHART_LINE_SOLID.create()));
+                        "Dashboard º2", DashboardView2.class,
+                        LineAwesomeIcon.CHART_LINE_SOLID.create()));
         nav.addItem(new SideNavItem("Files", FilesView.class, LineAwesomeIcon.FILE.create()));
         nav.addItem(new SideNavItem("Hotels", HotelsView.class, LineAwesomeIcon.HOTEL_SOLID.create()));
         nav.addItem(
@@ -226,17 +240,21 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
                         LineAwesomeIcon.INFO_CIRCLE_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Product list", ProductListView.class, LineAwesomeIcon.TH_LARGE_SOLID.create()));
+                        "Product list", ProductListView.class,
+                        LineAwesomeIcon.TH_LARGE_SOLID.create()));
         nav.addItem(new SideNavItem("Profile", ProfileView.class, LineAwesomeIcon.USER.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Shopping cart", ShoppingCartView.class, LineAwesomeIcon.SHOPPING_CART_SOLID.create()));
+                        "Shopping cart", ShoppingCartView.class,
+                        LineAwesomeIcon.SHOPPING_CART_SOLID.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Validation form", ValidationView.class, LineAwesomeIcon.CHECK_CIRCLE.create()));
+                        "Validation form", ValidationView.class,
+                        LineAwesomeIcon.CHECK_CIRCLE.create()));
         nav.addItem(
                 new SideNavItem(
-                        "Wizard (WIP)", Step1View.class, LineAwesomeIcon.HAT_WIZARD_SOLID.create()));
+                        "Wizard (WIP)", Step1View.class,
+                        LineAwesomeIcon.HAT_WIZARD_SOLID.create()));
         return nav;
     }
 

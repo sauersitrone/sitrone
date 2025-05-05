@@ -2354,8 +2354,8 @@ public class UIUtils {
         return getAvatarRender(adult.avatar, adult.firstName + " " + adult.lastName, null);
     }
 
-    public static Component getAdutRender(Family family) {
-        return getAvatarRender(family.foto, Address.getFullName(family.firstName, family.lastName), null);
+    public static Component getRelativeRender(Relative relative) {
+        return getAvatarRender(relative.foto, Address.getFullName(relative.firstName, relative.lastName), null);
     }
 
     public static Component getUserRender(User user) {

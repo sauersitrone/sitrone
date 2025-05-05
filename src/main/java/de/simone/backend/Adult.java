@@ -31,11 +31,11 @@ public class Adult extends TAEntity {
     public Long carerId;
 
     @NotNull
-    public Long tamagotchiId;
-
-    @NotNull
     @OneOfStrings({ CARER, FAMILY, CARER_AND_FAMILY })
     public String relationship = CARER_AND_FAMILY;
+    
+    @NotNull
+    public Long tamagotchiId;
 
     @NotNull
     @OneOfStrings({ WOMAN, MAN })
