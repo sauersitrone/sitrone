@@ -32,7 +32,7 @@ public class P2PChatsService extends TAService<P2PMessage> {
         List<Adult> adults = Adult.listAll();
         for (Adult adult : adults) {
             P2PGroup group = new P2PGroup();
-            group.image = adult.avatar;
+            group.image = adult.picture;
             group.name = adult.getFullName();
             group.id = adult.id;
             groups.add(group);

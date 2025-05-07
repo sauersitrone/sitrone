@@ -19,12 +19,12 @@ public class RelativeForm extends TAForm<Relative> {
   private TextField firstName;
   private TextField lastName;
   private Select<String> relation;
-  private FileLoaderSimple foto;
+  private FileLoaderSimple picture;
   private DatePicker birdthDate;
   private TextArea details;
 
   public RelativeForm() {
-    foto = new FileLoaderSimple("Person.foto");
+    picture = new FileLoaderSimple("Person.picture");
     firstName = UIUtils.getTextField("Person.firstName");
     lastName = UIUtils.getTextField("Person.lastName");
     relation = UIUtils.getSelect("relative.relation", "Person.relation");
@@ -32,6 +32,6 @@ public class RelativeForm extends TAForm<Relative> {
     details = UIUtils.getTextArea("Person.details", true, false);
 
     addBodyComponets(UIUtils.getHorizontalLayout2(firstName, lastName),
-        UIUtils.getHorizontalLayout2(relation, birdthDate), foto, details);
+        UIUtils.getHorizontalLayout2(relation, birdthDate), picture, details);
   }
 }

@@ -3,9 +3,12 @@ package de.simone.backend;
 import java.time.*;
 import java.util.*;
 
+import com.opencsv.bean.*;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+// propertyPath=weaknesses, propertyPath=personality, propertyPath=strengths
 @Entity
 @Table(name = "Tamagotchies")
 public class Tamagotchi extends TAEntity {
@@ -44,20 +47,18 @@ public class Tamagotchi extends TAEntity {
     @Size(max = SIZE_NAMES)
     public String name;
 
-    @NotBlank
     @NotEmpty
-    @Size(max = SIZE_NAMES)
-    public String personality;
+    @ElementCollection(fetch = FetchType.EAGER)
+    public Set<String> personality = new HashSet<>();
 
-    @NotBlank
     @NotEmpty
-    @Size(max = SIZE_NAMES)
-    public String strengths;
+    @ElementCollection(fetch = FetchType.EAGER)
+    public Set<String> strengths = new HashSet<>();
 
-    @NotBlank
     @NotEmpty
-    @Size(max = SIZE_NAMES)
-    public String weaknesses;
+    @ElementCollection(fetch = FetchType.EAGER)
+    public Set<String> weaknesses = new HashSet<>();
+
 
     // @NotNull
     public String avatar;

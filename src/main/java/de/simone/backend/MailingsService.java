@@ -232,7 +232,7 @@ public class MailingsService extends TAService<Mailing> {
         variables.put(variableName + ".type", TranslationProvider.getTranslation("Address.type"));
 
         variables.put(variableName + ".mailSalutation", TranslationProvider.getTranslation("Address.mailSalutation"));
-        variables.put(variableName + ".embeddedFoto", TranslationProvider.getTranslation("Address.foto"));
+        variables.put(variableName + ".embeddedPicture", TranslationProvider.getTranslation("Address.picture"));
         variables.put(variableName + ".embeddedSignature", TranslationProvider.getTranslation("Address.signature"));
         variables.put(variableName + ".getGermanSalutation(\"soft\")",
                 TranslationProvider.getTranslation("Address.getGermanSalutation"));

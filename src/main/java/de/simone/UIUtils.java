@@ -2351,11 +2351,11 @@ public class UIUtils {
     }
 
     public static Component getAdutRender(Adult adult) {
-        return getAvatarRender(adult.avatar, adult.firstName + " " + adult.lastName, null);
+        return getAvatarRender(adult.picture, adult.firstName + " " + adult.lastName, null);
     }
 
     public static Component getRelativeRender(Relative relative) {
-        return getAvatarRender(relative.foto, Address.getFullName(relative.firstName, relative.lastName), null);
+        return getAvatarRender(relative.picture, Address.getFullName(relative.firstName, relative.lastName), null);
     }
 
     public static Component getUserRender(User user) {

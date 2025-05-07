@@ -3,9 +3,7 @@ package de.simone.ui;
 import com.vaadin.flow.component.combobox.*;
 import com.vaadin.flow.component.datepicker.*;
 import com.vaadin.flow.component.select.Select;
-import com.vaadin.flow.component.textfield.EmailField;
-import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.*;
 import com.vaadin.flow.data.selection.*;
 import com.vaadin.flow.router.Route;
 import de.simone.MainLayout;
@@ -26,12 +24,14 @@ public class AdultForm extends TAForm<Adult> {
   private Select<String> relationship;
   private Select<String> gender;
   private Select<String> maritalStatus;
-  private MultiSelectComboBox<String> interests;
-  private FileLoaderSimple avatar;
+  private FileLoaderSimple picture;
   private DatePicker  birdthDate;
-
+  private MultiSelectComboBox<String> personality;
+  private MultiSelectComboBox<String> interests;
+  private MultiSelectComboBox<String> ocupation;
+  
   public AdultForm() {
-    avatar = new FileLoaderSimple("Person.avatar");
+    picture = new FileLoaderSimple("Person.picture");
     firstName = UIUtils.getTextField("Person.firstName");
     lastName = UIUtils.getTextField("Person.lastName");
     email = UIUtils.getEmailField("Person.email");
@@ -42,7 +42,9 @@ public class AdultForm extends TAForm<Adult> {
     gender = UIUtils.getSelect("person.gender", "Person.gender");
     maritalStatus = UIUtils.getSelect("person.maritalStatus", "Person.maritalStatus");
     birdthDate = UIUtils.getDatePicker("Person.birdthDate");
+    personality = UIUtils.getMultiSelectComboBox("person.personality", "Person.personality", false);
     interests = UIUtils.getMultiSelectComboBox("person.interests", "Person.interests", false);
+    ocupation = UIUtils.getMultiSelectComboBox("person.ocupation", "Person.ocupation", false);
 
     addBodyComponets(
         UIUtils.getHorizontalLayout2(firstName, lastName),
@@ -50,7 +52,10 @@ public class AdultForm extends TAForm<Adult> {
         UIUtils.getHorizontalLayout2(gender, maritalStatus),
         relationship,
         preferredLanguage,
-        birdthDate, interests,
-        avatar);
+        birdthDate, 
+        picture);
+
+        addBodyComponets("personality.separator", false, personality, interests, ocupation);
+
   }
 }

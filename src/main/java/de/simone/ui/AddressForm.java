@@ -23,7 +23,7 @@ public class AddressForm extends GroupPanel {
     private Select<String> title;
     private EmailField email;
     private TextField phone;
-    private FileLoaderSimple foto;
+    private FileLoaderSimple picture;
     private FileLoaderSimple signature;
 
     protected BeanValidationBinder<Address> binder;
@@ -38,8 +38,8 @@ public class AddressForm extends GroupPanel {
 
     public AddressForm(String titleId, boolean withImages, int cols) {
         super(titleId);
-        foto = new FileLoaderSimple("Address.foto");
-        // foto.setPlaceHolder(UIUtils.YOUR_AVATAR_HERE);
+        picture = new FileLoaderSimple("Address.picture");
+        // picture.setPlaceHolder(UIUtils.YOUR_AVATAR_HERE);
         signature = new FileLoaderSimple("Address.signature");
         // signature.setPlaceHolder(UIUtils.YOUR_SIGNATURE_HERE);
         firstName = UIUtils.getTextField("Address.firstName");
@@ -65,7 +65,7 @@ public class AddressForm extends GroupPanel {
         // images & signature
         if (withImages) {
             Hr hr2 = UIUtils.getHrSeparator();
-            getBodyLayout().add(hr2, foto, signature);
+            getBodyLayout().add(hr2, picture, signature);
             getBodyLayout().setColspan(hr2, cols);
         }
 

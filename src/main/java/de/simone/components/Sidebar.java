@@ -36,7 +36,7 @@ public class Sidebar extends Section implements HasEnabled, HasTheme {
         addClassNames(Background.BASE, BoxShadow.MEDIUM, Display.FLEX, FlexDirection.COLUMN, Overflow.HIDDEN,
                 Position.FIXED, "bottom-0", "top-0", "transition-all", "z-10");
         setMaxWidth(100, Unit.PERCENTAGE);
-        setWidth(480, Unit.PIXELS);
+        setWidth(580, Unit.PIXELS);
 
         this.header = new Header();
         this.header.addClassNames(Border.BOTTOM, Display.FLEX, JustifyContent.BETWEEN,

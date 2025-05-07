@@ -98,7 +98,7 @@ public class Address extends TAEntity {
     public String phone;
 
     @Size(max = SIZE_255)
-    public String foto;
+    public String picture;
 
     @Size(max = SIZE_255)
     public String signature;
@@ -113,8 +113,8 @@ public class Address extends TAEntity {
      * @return - the mime/image
      */
     @JsonIgnore
-    public String getEmbeddedFoto() {
-        return super.getImage(foto);
+    public String getEmbeddedPicture() {
+        return super.getImage(picture);
     }
 
     /**

@@ -79,6 +79,7 @@ public class FileLoaderSimple extends CustomField<String> {
           fileName = event.getFileName();
           String source = MiscellaneousService.saveToFile(fileBuffer.getInputStream(), fileName);
           updateImage(source);
+          setValue(source);
         });
     upload.addFileRejectedListener(
         evt -> {
@@ -124,6 +125,7 @@ public class FileLoaderSimple extends CustomField<String> {
     MiscellaneousService.deleteFile(fieldValue);
     setPlaceHolder(placeHolder);
   }
+
   public void setPlaceHolder(String placeHolder) {
     this.placeHolder = placeHolder;
     boolean isVis = imageImage.isVisible();
@@ -139,26 +141,8 @@ public class FileLoaderSimple extends CustomField<String> {
   }
 
   @Override
-  public String getValue() {
-    if (fileBuffer != null) {
-      String source = MiscellaneousService.saveToFile(fileBuffer.getInputStream(), fileName);
-      fileBuffer = null;
-      return source;
-    }
-    // return super.getValue();
-    return null;
-  }
-
-  @Override
   protected String generateModelValue() {
-    // System.out.println("FileLoaderSimple.generateModelValue()");
-    // if (fileBuffer != null) {
-    //   String source = MiscellaneousService.saveToFile(fileBuffer.getInputStream(), fileName);
-    //   fileBuffer = null;
-    //   // setValue(source);
-    //   return source;
-    // }
-    // // return super.getValue();
+
     return null;
   }
 

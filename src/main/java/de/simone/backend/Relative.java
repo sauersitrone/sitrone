@@ -35,7 +35,7 @@ public class Relative extends TAEntity {
     public String relation = "Father";
 
     @Size(max = SIZE_255)
-    public String foto;
+    public String picture;
 
     @NotNull
     public LocalDate birdthDate;

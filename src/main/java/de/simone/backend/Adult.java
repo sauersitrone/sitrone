@@ -5,6 +5,8 @@ import java.util.*;
 
 import org.hibernate.annotations.*;
 
+import com.opencsv.bean.*;
+
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
@@ -33,7 +35,7 @@ public class Adult extends TAEntity {
     @NotNull
     @OneOfStrings({ CARER, FAMILY, CARER_AND_FAMILY })
     public String relationship = CARER_AND_FAMILY;
-    
+
     @NotNull
     public Long tamagotchiId;
 
@@ -42,7 +44,7 @@ public class Adult extends TAEntity {
     public String gender = MAN;
 
     @NotNull
-    @OneOfStrings({ NOESPEC, SINGLE , MARRIED , DIVORCED, WIDOW })
+    @OneOfStrings({ NOESPEC, SINGLE, MARRIED, DIVORCED, WIDOW })
     public String maritalStatus = NOESPEC;
 
     @NotBlank
@@ -56,7 +58,7 @@ public class Adult extends TAEntity {
     public String lastName;
 
     @Size(max = SIZE_255)
-    public String avatar;
+    public String picture;
 
     @Email
     @NotBlank
@@ -71,7 +73,15 @@ public class Adult extends TAEntity {
 
     @NotEmpty
     @ElementCollection(fetch = FetchType.EAGER)
+    public Set<String> personality = new HashSet<>();
+
+    @NotEmpty
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<String> interests = new HashSet<>();
+
+    @NotEmpty
+    @ElementCollection(fetch = FetchType.EAGER)
+    public Set<String> ocupation = new HashSet<>();
 
     @NotNull
     @OneOfStrings({ EN, DE })
