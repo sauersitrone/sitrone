@@ -1,87 +1,60 @@
 
 package de.simone.backend;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.*;
+import java.util.*;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import com.opencsv.bean.*;
 
-import dev.samstevens.totp.code.CodeGenerator;
-import dev.samstevens.totp.code.DefaultCodeGenerator;
-import dev.samstevens.totp.secret.DefaultSecretGenerator;
-import dev.samstevens.totp.secret.SecretGenerator;
-import dev.samstevens.totp.time.SystemTimeProvider;
-import dev.samstevens.totp.time.TimeProvider;
-import io.quarkus.elytron.security.common.BcryptUtil;
-import io.quarkus.logging.Log;
-import io.quarkus.security.jpa.Password;
-import io.quarkus.security.jpa.Roles;
-import io.quarkus.security.jpa.UserDefinition;
-import io.quarkus.security.jpa.Username;
-import jakarta.enterprise.context.control.ActivateRequestContext;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Index;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import net.andreinc.jbvext.annotations.misc.OneOfStrings;
+import dev.samstevens.totp.code.*;
+import dev.samstevens.totp.secret.*;
+import dev.samstevens.totp.time.*;
+import io.quarkus.elytron.security.common.*;
+import io.quarkus.logging.*;
+import io.quarkus.security.jpa.*;
+import jakarta.enterprise.context.control.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import net.andreinc.jbvext.annotations.misc.*;
 
 @Entity
 @UserDefinition
 @Table(name = "Users", indexes = {
         @Index(name = "User_userName", columnList = "userName") })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User extends TAEntity {
+public class User extends TAEntity implements UserDomain {
 
     public static final String APP_MASTER_ROLE = "Sitrone.master";
     public static final String ANONYMOUS = "User.anonymous";
 
-    public static final String ADMIN_USER_NAME = "Sitrone";  
+    public static final String ADMIN_USER_NAME = "Sitrone";
+    public static final Long ADMIN_USER_ID = 130L;
 
-    public static final String UNVERIFIED = "UNVERIFIED"; 
+    public static final String UNVERIFIED = "UNVERIFIED";
     public static final String INCOMPLETE = "INCOMPLETE";
     public static final String VERIFIED = "VERIFIED";
 
-    public static final String CARER = "CARER"; 
+    public static final String CARER = "CARER";
     public static final String RELATIVE = "RELATIVE";
-    
-    public static final String VERIFY_EMAIL = "VERIFY_EMAIL"; 
-    public static final String VERIFY_OTP = "VERIFY_OTP"; 
-    public static final String CONFIGURE_OTP = "CONFIGURE_OTP"; 
+
+    public static final String VERIFY_EMAIL = "VERIFY_EMAIL";
+    public static final String VERIFY_OTP = "VERIFY_OTP";
+    public static final String CONFIGURE_OTP = "CONFIGURE_OTP";
     public static final String UPDATE_PASS = "UPDATE_PASS";
 
     // the same values as Lumo class
     public static final String LIGHT = "light";
     public static final String DARK = "dark";
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Query> queries = new HashSet<>();
+    @OrderColumn
+    @ElementCollection(fetch = FetchType.EAGER)
+    public List<String> adults = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public List<UserPreference> preferences = new ArrayList<>();
+    @NotNull
+    public Long currentAdultId;
 
-    @OneToOne // can be null at some point
+    @OneToOne
     public Role role;
 
     @ManyToMany(fetch = FetchType.EAGER) // no cascade, and can be empty at some point
@@ -144,7 +117,7 @@ public class User extends TAEntity {
     public String status = INCOMPLETE;
 
     @NotNull
-    @OneOfStrings({ CARER,RELATIVE})
+    @OneOfStrings({ CARER, RELATIVE })
     public String type = CARER;
 
     @JsonIgnore
@@ -158,7 +131,7 @@ public class User extends TAEntity {
     @CsvBindByName
     @OneOfStrings({ Address.WITHOUT, Address.DAME, Address.MISTER })
     public String salutation = Address.WITHOUT;
-    
+
     @NotBlank
     @NotEmpty
     @CsvBindByName
@@ -247,14 +220,6 @@ public class User extends TAEntity {
         return roles;
     }
 
-    public Query getQuery(Class<?> clazz) {
-        Optional<Query> optional = queries.stream().filter(q -> q.className.equals(clazz.getName())).findFirst();
-        if (optional.isPresent())
-            return optional.get();
-        else
-            return null;
-    }
-
     public void addRole(Role role) {
         if (!associatedRoles.contains(role))
             associatedRoles.add(role);
@@ -268,15 +233,6 @@ public class User extends TAEntity {
     @JsonIgnore
     public String getEmbeddedAvatar() {
         return super.getImage(avatar);
-    }
-
-    public void addQuery(Query query) {
-        if (!queries.contains(query))
-            queries.add(query);
-    }
-
-    public void removeQuery(Class<?> clazz) {
-        queries.removeIf(q -> q.className.equals(clazz.getName()));
     }
 
     public boolean isAdmin() {
@@ -307,6 +263,7 @@ public class User extends TAEntity {
     public void clearActions() {
         internalActions.clear();
     }
+
     public String getFullName() {
         return Address.getFullName(firstName, lastName);
     }

@@ -4,8 +4,7 @@ import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.SerializablePredicate;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 
 import de.simone.MainLayout;
 import de.simone.UIUtils;
@@ -28,7 +27,8 @@ public class EndPointsView extends TAView<EndPoint> {
         // mobile
         grid.addColumn(new ComponentRenderer<>(ge -> {
             return new Span();
-            // MovilListItem mli = new MovilListItem(null, ge.target, ge.description, null, null);
+            // MovilListItem mli = new MovilListItem(null, ge.target, ge.description, null,
+            // null);
             // return mli;
         })).setHeader(getTranslation("EndPoint.target")).setComparator(te -> te.target)
                 .setSortable(true);

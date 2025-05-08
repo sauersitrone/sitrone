@@ -19,92 +19,86 @@ import jakarta.inject.Inject;
 
 @RolesAllowed({ "Sitrone.master", "Prescriptions" })
 @Route(value = "Prescriptions", layout = MainLayout.class)
-public class PrescriptionsView extends TAView<Prescription> implements HasUrlParameter<Long> {
+public class PrescriptionsView extends TAView<Prescription> {
 
-  public static final String Prescription_ACTION = "action.Prescription";
-  protected Long adultId;
+    public static final String Prescription_ACTION = "action.Prescription";
+    protected Long adultId;
 
-  @Inject
-  PrescriptionsService prescriptionsService;
+    @Inject
+    PrescriptionsService prescriptionsService;
 
-  public PrescriptionsView() {
-    this.grid = UIUtils.getGrid(Prescription.class);
+    public PrescriptionsView() {
+        this.grid = UIUtils.getGrid(Prescription.class);
 
-    // mobile
-    grid.addColumn(
-        new ComponentRenderer<>(
-            te -> {
-              return new Span();
+        // mobile
+        grid.addColumn(
+                new ComponentRenderer<>(
+                        te -> {
+                            return new Span();
 
-              // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +
-              // ge.lastName,
-              // ge.email, null, null);
-              // mli.setAvatar(ge.firstName + " " + ge.lastName, ge.avatar);
-              // return mli;
-            }))
-        .setHeader(getTranslation("Prescription.fullName"))
-        .setComparator(te -> te.dosage)
-        .setSortable(true)
-        .setAutoWidth(true);
+                            // MovilListItem mli = new MovilListItem(ge.isEnabled, ge.firstName + " " +
+                            // ge.lastName,
+                            // ge.email, null, null);
+                            // mli.setAvatar(ge.firstName + " " + ge.lastName, ge.avatar);
+                            // return mli;
+                        }))
+                .setHeader(getTranslation("Prescription.fullName"))
+                .setComparator(te -> te.dosage)
+                .setSortable(true)
+                .setAutoWidth(true);
 
-    // desktop
-    UIUtils.setIdColumn(grid);
+        // desktop
+        UIUtils.setIdColumn(grid);
 
-    grid.addColumn(Prescription::getCronDescription)
-        .setHeader(getTranslation("Prescription.calendarWhen"))
-        .setComparator(Prescription::getCronDescription)
-        .setSortable(true)
-        .setAutoWidth(true);
+        grid.addColumn(Prescription::getCronDescription)
+                .setHeader(getTranslation("Prescription.calendarWhen"))
+                .setComparator(Prescription::getCronDescription)
+                .setSortable(true)
+                .setAutoWidth(true);
 
-    grid.addColumn(te -> te.dosage)
-        .setHeader(getTranslation("Prescription.dosage"))
-        .setComparator(te -> te.dosage)
-        .setSortable(true)
-        .setAutoWidth(true);
+        grid.addColumn(te -> te.dosage)
+                .setHeader(getTranslation("Prescription.dosage"))
+                .setComparator(te -> te.dosage)
+                .setSortable(true)
+                .setAutoWidth(true);
 
-    grid.addColumn(te -> te.quantity)
-        .setHeader(getTranslation("Prescription.quantity"))
-        .setComparator(te -> te.quantity)
-        .setTextAlign(ColumnTextAlign.END)
-        .setAutoWidth(true);
+        grid.addColumn(te -> te.quantity)
+                .setHeader(getTranslation("Prescription.quantity"))
+                .setComparator(te -> te.quantity)
+                .setTextAlign(ColumnTextAlign.END)
+                .setAutoWidth(true);
 
-    grid.addColumn(te -> te.indications)
-        .setHeader(getTranslation("Prescription.indications"))
-        .setComparator(te -> te.indications)
-        .setSortable(true)
-        .setAutoWidth(true);
+        grid.addColumn(te -> te.indications)
+                .setHeader(getTranslation("Prescription.indications"))
+                .setComparator(te -> te.indications)
+                .setSortable(true)
+                .setAutoWidth(true);
 
-    grid.addColumn(te -> te.contraindications)
-        .setHeader(getTranslation("Prescription.contraindications"))
-        .setComparator(te -> te.contraindications)
-        .setSortable(true)
-        .setAutoWidth(true);
-  }
+        grid.addColumn(te -> te.contraindications)
+                .setHeader(getTranslation("Prescription.contraindications"))
+                .setComparator(te -> te.contraindications)
+                .setSortable(true)
+                .setAutoWidth(true);
+    }
 
-  @Override
-  public void setParameter(BeforeEvent event, @OptionalParameter Long adultId) {
-    this.adultId = adultId;
-    init(Prescription.class, PrescriptionForm.class, prescriptionsService);
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        this.adultId = adultId;
+        init(Prescription.class, PrescriptionForm.class, prescriptionsService);
 
-    SerializablePredicate<Prescription> filter = entity -> {
-      String searchTerm = searchField.getValue().trim().toLowerCase().toLowerCase();
-      if (searchTerm.isEmpty())
-        return true;
+        SerializablePredicate<Prescription> filter = entity -> {
+            String searchTerm = searchField.getValue().trim().toLowerCase().toLowerCase();
+            if (searchTerm.isEmpty())
+                return true;
 
-      boolean m1 = entity.dosage.toLowerCase().contains(searchTerm);
-      boolean m2 = entity.quantity.toString().toLowerCase().contains(searchTerm);
-      boolean m3 = entity.indications.toLowerCase().contains(searchTerm);
-      boolean m4 = entity.contraindications.toLowerCase().contains(searchTerm);
+            boolean m1 = entity.dosage.toLowerCase().contains(searchTerm);
+            boolean m2 = entity.quantity.toString().toLowerCase().contains(searchTerm);
+            boolean m3 = entity.indications.toLowerCase().contains(searchTerm);
+            boolean m4 = entity.contraindications.toLowerCase().contains(searchTerm);
 
-      return m1 || m2 || m3 || m4;
-    };
-    setItems(
-        prescriptionsService.list("adultId = :adultId", Parameters.with("adultId", adultId)),
-        filter);
-  }
-
-  @Override
-  public void beforeEnter(BeforeEnterEvent event) {
-    //
-  }
+            return m1 || m2 || m3 || m4;
+        };
+        setItems(
+                prescriptionsService.listAll(), filter);
+    }
 }

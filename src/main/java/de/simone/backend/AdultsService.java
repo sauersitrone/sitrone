@@ -16,12 +16,6 @@ public class AdultsService extends TAService<Adult> {
   }
 
   @Override
-  public List<Adult> listAll() {
-    User user = SecurityUtils.getLoggedUser();
-    return super.list("carerId = :carerId", Parameters.with("carerId", user.id));
-  }
-
-  @Override
   public Adult get(Long id) throws WebApplicationException {
     return getImpl(id);
   }
@@ -35,8 +29,6 @@ public class AdultsService extends TAService<Adult> {
   @Override
   @Transactional
   public Response save(Adult entity) {
-    // the carer is the user, who created this adult
-    entity.carerId = SecurityUtils.getLoggedUser().id;
     return saveImpl(entity);
   }
 

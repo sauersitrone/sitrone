@@ -103,12 +103,12 @@ public class HanniResourceCenter extends VerticalLayout {
     }
 
     public boolean addToLog(String messageId, boolean onlyOnce) {
-        Long count = HanniLog.count("ownerId = ?1 AND messageId = ?2", user.id, messageId);
+        Long count = HanniLog.count("secondaryKey = ?1 AND messageId = ?2", user.id, messageId);
         boolean addeded = false;
         if (count == 0 || (count > 0 && !onlyOnce)) {
             HanniLog log = new HanniLog();
             log.messageId = messageId;
-            log.setOwner(user);
+            log.secondaryKey = user.id;
             log.persist();
             addeded = true;
         }

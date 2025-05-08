@@ -4,8 +4,8 @@ import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.SerializablePredicate;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
+
 import de.simone.MainLayout;
 import de.simone.UIUtils;
 import de.simone.backend.Drug;
@@ -17,7 +17,7 @@ import jakarta.inject.Inject;
 @Route(value = "Drugs", layout = MainLayout.class)
 public class DrugsView extends TAView<Drug> {
 
-  @Inject DrugsService medicinesService;
+  @Inject DrugsService drugsService;
 
   public DrugsView() {
     this.grid = UIUtils.getGrid(Drug.class);
@@ -67,7 +67,7 @@ public class DrugsView extends TAView<Drug> {
 
   @Override
   public void beforeEnter(BeforeEnterEvent event) {
-    init(Drug.class, DrugForm.class, medicinesService, true);
+    init(Drug.class, DrugForm.class, drugsService, true);
 
     SerializablePredicate<Drug> filter =
         entity -> {
@@ -82,6 +82,6 @@ public class DrugsView extends TAView<Drug> {
           return m1 || m2 || m3 || m4;
         };
 
-    setItems(medicinesService.listAll(), filter);
+    setItems(drugsService.listAll(), filter);
   }
 }

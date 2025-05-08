@@ -3,18 +3,13 @@ package de.simone.backend;
 import java.time.*;
 import java.util.*;
 
-import org.hibernate.annotations.*;
-
-import com.opencsv.bean.*;
-
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import net.andreinc.jbvext.annotations.misc.*;
 
 @Entity
 @Table(name = "Adults")
-public class Adult extends TAEntity {
+public class Adult extends TAEntity implements UserDomain {
 
     public static final String WOMAN = "WOMAN";
     public static final String MAN = "MAN";
@@ -28,9 +23,6 @@ public class Adult extends TAEntity {
     public static final String CARER = "CARER";
     public static final String FAMILY = "FAMILY";
     public static final String CARER_AND_FAMILY = "CARER_AND_FAMILY";
-
-    @NotNull
-    public Long carerId;
 
     @NotNull
     @OneOfStrings({ CARER, FAMILY, CARER_AND_FAMILY })

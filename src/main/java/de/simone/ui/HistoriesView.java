@@ -19,7 +19,7 @@ import jakarta.inject.Inject;
 
 @RolesAllowed({"Sitrone.master", "Histories"})
 @Route(value = "Histories", layout = MainLayout.class)
-public class HistoriesView extends TAView<History> implements HasUrlParameter<Long> {
+public class HistoriesView extends TAView<History> {
 
   public static final String HISTORY_ACTION = "action.history";
   protected Long adultId;
@@ -69,7 +69,7 @@ public class HistoriesView extends TAView<History> implements HasUrlParameter<Lo
   }
 
   @Override
-  public void setParameter(BeforeEvent event, @OptionalParameter Long adultId) {
+  public void beforeEnter(BeforeEnterEvent event) {
     this.adultId = adultId;
     init(History.class, HistoryForm.class, historiesService, false);
     setToolBarComponents(UIUtils.getToolBar(this));
@@ -91,9 +91,4 @@ public class HistoriesView extends TAView<History> implements HasUrlParameter<Lo
         historiesService.list("adultId = :adultId", Parameters.with("adultId", adultId)), filter);
   }
 
-  @Override
-  public void beforeEnter(BeforeEnterEvent event) {
-    // inthis class, the logic is on setParameter(BeforeEvent event, @OptionalParameter Long
-    // adultId)  executed
-  }
 }

@@ -17,7 +17,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "Countries", indexes = {
         @Index(name = "Countries_code", columnList = "code") })
-public class Country extends TAEntity {
+public class Country extends TAEntity implements UserDomain {
 
     // default gfunds country selection
     public static final String EUROPE = "Europe";

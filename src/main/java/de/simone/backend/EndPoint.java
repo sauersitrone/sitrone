@@ -1,15 +1,10 @@
 package de.simone.backend;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "EndPoints", indexes = {
-        @Index(name = "EndPoints_ownerId", columnList = "ownerId") })
+@Table(name = "EndPoints")
 public class EndPoint extends TAEntity {
 
 	@NotBlank

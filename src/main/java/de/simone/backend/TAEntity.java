@@ -10,6 +10,7 @@ import com.opencsv.bean.*;
 
 import de.simone.*;
 import io.quarkus.hibernate.orm.panache.*;
+import io.smallrye.common.constraint.*;
 import jakarta.persistence.*;
 
 @MappedSuperclass
@@ -51,6 +52,9 @@ public abstract class TAEntity extends PanacheEntityBase implements Comparable<T
     @GenericGenerator(name = "TGenerator", strategy = "de.simone.backend.TEntitiyIdentifierGenerator")
     public Long id;
 
+    @NotNull
+    public Long secondaryKey;
+
     @JsonIgnore
     @CsvBindByName
     @CsvDate(TAEntity.CSV_DATETIME_FORMAT)
@@ -60,8 +64,6 @@ public abstract class TAEntity extends PanacheEntityBase implements Comparable<T
     @CsvBindByName
     @CsvDate(TAEntity.CSV_DATETIME_FORMAT)
     private LocalDateTime updatedAt;
-
-    private Long ownerId;
 
     @PrePersist
     protected void prePersist() {
@@ -75,17 +77,6 @@ public abstract class TAEntity extends PanacheEntityBase implements Comparable<T
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-    
-    public void setOwner(TAEntity owner) {
-        if (owner == null || owner.isNewEntity())
-            throw new IllegalArgumentException("Parameter owner or owner.id can.t be null");
-        this.ownerId = owner.id;
-    }
-
-    @JsonIgnore
-    public Long getOwner() {
-        return ownerId;
     }
 
     /**

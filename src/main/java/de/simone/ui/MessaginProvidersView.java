@@ -3,8 +3,7 @@ package de.simone.ui;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.SerializablePredicate;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 
 import de.simone.MainLayout;
 import de.simone.UIUtils;
@@ -14,53 +13,54 @@ import de.simone.components.list.ListItem;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 
-@RolesAllowed({"Sitrone.master", "MessaginProviders"})
+@RolesAllowed({ "Sitrone.master", "MessaginProviders" })
 @Route(value = "MessaginProviders", layout = MainLayout.class)
 public class MessaginProvidersView extends TAView<MessagingProvider> {
 
-  @Inject MessagingProvidersService messagingProvidersService;
+    @Inject
+    MessagingProvidersService messagingProvidersService;
 
-  public MessaginProvidersView() {
-    this.grid = UIUtils.getGrid(MessagingProvider.class);
+    public MessaginProvidersView() {
+        this.grid = UIUtils.getGrid(MessagingProvider.class);
 
-    // mobile
-    grid.addColumn(
-            new ComponentRenderer<>(
-                te -> {
-                  ListItem item = UIUtils.getListItem(te.getName(), null, te.getIcon());
-                  return     item;
-                }))
-        .setHeader(getTranslation("MessagingProvider.name"))
-        .setComparator(te -> te.getName())
-        .setSortable(true)
-        .setAutoWidth(true);
+        // mobile
+        grid.addColumn(
+                new ComponentRenderer<>(
+                        te -> {
+                            ListItem item = UIUtils.getListItem(te.getName(), null, te.getIcon());
+                            return item;
+                        }))
+                .setHeader(getTranslation("MessagingProvider.name"))
+                .setComparator(te -> te.getName())
+                .setSortable(true)
+                .setAutoWidth(true);
 
-    // desktop
-    UIUtils.setIdColumn(grid);
+        // desktop
+        UIUtils.setIdColumn(grid);
 
-    grid.addColumn(new ComponentRenderer<>(UIUtils::getMessagingProviderRender))
-        .setHeader(getTranslation("MessagingProvider.name"))
-        .setComparator(te -> te.getName())
-        .setSortable(true)
-        .setAutoWidth(true);
+        grid.addColumn(new ComponentRenderer<>(UIUtils::getMessagingProviderRender))
+                .setHeader(getTranslation("MessagingProvider.name"))
+                .setComparator(te -> te.getName())
+                .setSortable(true)
+                .setAutoWidth(true);
 
-  }
+    }
 
-  @Override
-  public void beforeEnter(BeforeEnterEvent event) {
-    init(MessagingProvider.class, MessagingProviderForm.class, messagingProvidersService, true);
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        init(MessagingProvider.class, MessagingProviderForm.class, messagingProvidersService, true);
 
-    SerializablePredicate<MessagingProvider> filter =
-        entity -> {
-          String searchTerm = searchField.getValue().trim().toLowerCase();
-          if (searchTerm.isEmpty()) return true;
+        SerializablePredicate<MessagingProvider> filter = entity -> {
+            String searchTerm = searchField.getValue().trim().toLowerCase();
+            if (searchTerm.isEmpty())
+                return true;
 
-          boolean m1 = entity.getName().toLowerCase().contains(searchTerm);
+            boolean m1 = entity.getName().toLowerCase().contains(searchTerm);
 
-          return m1;
+            return m1;
         };
 
-    setItems(messagingProvidersService.listAll(), filter);
-  }
+        setItems(messagingProvidersService.listAll(), filter);
+    }
 
 }

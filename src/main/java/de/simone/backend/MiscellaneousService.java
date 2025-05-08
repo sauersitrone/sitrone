@@ -142,7 +142,7 @@ public class MiscellaneousService {
 
     // remove undesired fields
     variables.remove(prefix + "isLive");
-    variables.remove(prefix + "ownerId");
+    variables.remove(prefix + "secondaryKey");
     variables.remove(prefix + "testCodeParameter");
 
     return variables;

@@ -1,16 +1,14 @@
 package de.simone.backend;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 
-import de.simone.SecurityUtils;
-import jakarta.annotation.security.PermitAll;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
+import de.simone.*;
+import jakarta.annotation.security.*;
+import jakarta.enterprise.context.*;
+import jakarta.inject.*;
+import jakarta.transaction.*;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.*;
 
 @Path("/Users")
 @ApplicationScoped
@@ -27,14 +25,6 @@ public class UsersService extends TAService<User> {
     @PermitAll
     public User get(@PathParam(value = "id") Long id) throws WebApplicationException {
         User user = getImpl(id);
-        // Assign a user role. the idee is: all access to this method are relatet to
-        // managment. that is new/edit actions.
-        // if (user.isNewEntity()) {
-        //     Account account = SecurityUtils.getAccount();
-        //     user.addAccount(account.id);
-        //     user.role = Role.find("roleName = ?1 AND ownerId =?2", Role.USER, account.id).singleResult();
-        //     user.addRole(user.role);
-        // }
         return user;
     }
 
@@ -127,7 +117,8 @@ public class UsersService extends TAService<User> {
         }
 
         // update the invitation field with the requester
-        // targetUser.invitationRequestUrl = User.getInvitationRequestUrl(sender, targetUser.id);
+        // targetUser.invitationRequestUrl = User.getInvitationRequestUrl(sender,
+        // targetUser.id);
 
         GlobalProperty globalProperty = GlobalProperty.getInstance();
         Mailing mailing = globalProperty.inviteUserMail;
@@ -177,7 +168,7 @@ public class UsersService extends TAService<User> {
         if (isTemporal)
             user.addAction(User.UPDATE_PASS);
 
-            AuditLog.logResetPassword(user);
+        AuditLog.logResetPassword(user);
         User.getEntityManager().merge(user);
         return getUpdatedResponse(user.id);
     }

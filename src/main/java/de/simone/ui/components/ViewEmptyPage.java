@@ -1,25 +1,16 @@
 package de.simone.ui.components;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.html.ListItem;
-import com.vaadin.flow.component.html.OrderedList;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.theme.lumo.LumoUtility;
+import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.orderedlayout.*;
+import com.vaadin.flow.theme.lumo.*;
 
-import de.simone.SecurityUtils;
-import de.simone.UIUtils;
-import de.simone.backend.HanniTask;
-import de.simone.backend.User;
-
+import de.simone.*;
+import de.simone.backend.*;
 
 public class ViewEmptyPage extends VerticalLayout {
 
@@ -75,11 +66,11 @@ public class ViewEmptyPage extends VerticalLayout {
         if (taskToCheck == null)
             return false;
 
-        User user  = SecurityUtils.getLoggedUser();
-        Long ownerId = user.id;
+        User user = SecurityUtils.getLoggedUser();
+        Long secondaryKey = user.id;
         List<ListItem> messages = new ArrayList<>();
-        String query = "ownerId = ?1";
-        String query2 = "ownerId = ?1 AND contributionType = ?2";
+        String query = "secondaryKey = ?1";
+        String query2 = "secondaryKey = ?1 AND contributionType = ?2";
         boolean onlyBlockAccess = false;
 
         for (String task : taskToCheck) {
@@ -94,25 +85,25 @@ public class ViewEmptyPage extends VerticalLayout {
 
             // there ist at least 1 campaig
             if (HanniTask.CREATE_CAMPAING.equals(task)) {
-                // Long count = Campaign.count(query, ownerId);
+                // Long count = Campaign.count(query, secondaryKey);
                 // if (count == 0) {
-                //     messages.add(new ListItem(text));
+                // messages.add(new ListItem(text));
                 // }
             }
 
             // there ist at least 1 payment method
             if (HanniTask.CREATE_PAYMENT_METHOD.equals(task)) {
-                // Long count = PaymentMethod.count(query, ownerId);
+                // Long count = PaymentMethod.count(query, secondaryKey);
                 // if (count == 0) {
-                //     messages.add(new ListItem(text));
+                // messages.add(new ListItem(text));
                 // }
             }
 
             // there ist at least 1 conversion widget
             if (HanniTask.CREATE_WIDGET.equals(task)) {
-                // Long count = Widget.count(query, ownerId);
+                // Long count = Widget.count(query, secondaryKey);
                 // if (count == 0) {
-                //     messages.add(new ListItem(text));
+                // messages.add(new ListItem(text));
                 // }
             }
 
@@ -124,17 +115,17 @@ public class ViewEmptyPage extends VerticalLayout {
 
             // BLOCKING TASK
             if (HanniTask.NO_DONATIONS.equals(task)) {
-                // Long count = Contribution.count(query2, ownerId, Contribution.DONATION);
+                // Long count = Contribution.count(query2, secondaryKey, Contribution.DONATION);
                 // onlyBlockAccess = (onlyBlockAccess) ? onlyBlockAccess : count == 0;
             }
 
             if (HanniTask.NO_PETITIONS.equals(task)) {
-                // Long count = Contribution.count(query2, ownerId, Contribution.PETITION);
+                // Long count = Contribution.count(query2, secondaryKey, Contribution.PETITION);
                 // onlyBlockAccess = (onlyBlockAccess) ? onlyBlockAccess : count == 0;
             }
 
             if (HanniTask.NO_SUPPORTERS.equals(task)) {
-                // Long count = Supporter.count(query, ownerId);
+                // Long count = Supporter.count(query, secondaryKey);
                 // onlyBlockAccess = (onlyBlockAccess) ? onlyBlockAccess : count == 0;
             }
         }

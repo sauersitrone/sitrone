@@ -9,8 +9,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.SerializablePredicate;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.router.internal.RouteUtil;
 
 import de.simone.MainLayout;
@@ -202,4 +201,5 @@ public class AdultsView extends TAView<Adult> {
 
     super.onComponentEvent(event);
   }
+
 }
