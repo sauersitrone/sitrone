@@ -53,7 +53,7 @@ public abstract class TAEntity extends PanacheEntityBase implements Comparable<T
     public Long id;
 
     @NotNull
-    public Long secondaryKey;
+    private Long secondaryKey;
 
     @JsonIgnore
     @CsvBindByName
@@ -77,6 +77,19 @@ public abstract class TAEntity extends PanacheEntityBase implements Comparable<T
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setSecondaryKey() {
+        User user = SecurityUtils.getLoggedUser();
+        if (this instanceof UserDomain) {
+            this.secondaryKey = user.id;
+        } else {
+            this.secondaryKey = user.currentAdultId;
+        }
+    }
+
+    public Long getSecondaryKey() {
+        return secondaryKey;
     }
 
     /**

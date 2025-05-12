@@ -37,9 +37,6 @@ public class Prescription extends TAEntity {
     public static final String PT4H = "PT4H";
     public static final String PT24H = "PT24H";
 
-    @NotNull
-    public Long adultId;
-
     @OneToOne
     public Drug drug;
 

@@ -1,23 +1,15 @@
 package de.simone.ui.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import com.vaadin.flow.component.button.*;
+import com.vaadin.flow.component.orderedlayout.*;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.orderedlayout.Scroller;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-
-import de.simone.SecurityUtils;
-import de.simone.UIUtils;
-import de.simone.backend.P2PMessage;
-import de.simone.backend.HanniLog;
-import de.simone.backend.HanniTask;
-import de.simone.backend.P2PChatsService;
-import de.simone.backend.User;
-import de.simone.ui.Home;
-import jakarta.transaction.Transactional;
+import de.simone.*;
+import de.simone.backend.*;
+import de.simone.ui.*;
+import jakarta.transaction.*;
 
 
 @Transactional
@@ -108,7 +100,7 @@ public class HanniResourceCenter extends VerticalLayout {
         if (count == 0 || (count > 0 && !onlyOnce)) {
             HanniLog log = new HanniLog();
             log.messageId = messageId;
-            log.secondaryKey = user.id;
+            log.setSecondaryKey();
             log.persist();
             addeded = true;
         }

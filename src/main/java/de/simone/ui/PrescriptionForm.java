@@ -50,7 +50,6 @@ public class PrescriptionForm extends TAForm<Prescription> {
     public void setEntity(Prescription entity) {
         DrugsService drugsService = CDI.current().select(DrugsService.class).get();
         drug.setItems(drugsService.listAll(Sort.ascending("name")));
-        entity.adultId = ((PrescriptionsView) taView).adultId;
         super.setEntity(entity);
     }
 }

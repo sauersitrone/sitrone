@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "HanniLogs", indexes = {
         @Index(name = "HanniLogs_secondaryKey", columnList = "secondaryKey") })
-public class HanniLog extends TAEntity {
+public class HanniLog extends TAEntity implements UserDomain {
 
     public String messageId;
 

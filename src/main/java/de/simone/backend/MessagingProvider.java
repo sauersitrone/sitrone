@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import net.andreinc.jbvext.annotations.misc.OneOfStrings;
 
 @Entity
-public class MessagingProvider extends TAEntity {
+public class MessagingProvider extends TAEntity implements UserDomain {
 
   public static final String WHATSAPP = "WHATSAPP";
   public static final String INSTAGRAM = "INSTAGRAM";

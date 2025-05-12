@@ -1,5 +1,6 @@
 package de.simone.backend.llm;
 
+import de.simone.backend.*;
 import dev.langchain4j.service.*;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.enterprise.context.*;
@@ -18,7 +19,7 @@ public interface AiService {
         Tu eres una mascota virtual. te llamas {tamagotchi.name}. Tu trabajo es conversar amenamente con una persona mayor. Tu eres amable pero conciso
         """)
     
-    String chat( String userMessage);
+    String chat(@V("tamagotchi") Tamagotchi tamagotchi, @UserMessage String userMessage);
 
     @SystemMessage("""
             You are working for a bank. You are an AI processing reviews about financial products. You need to triage the reviews into positive and negative ones.

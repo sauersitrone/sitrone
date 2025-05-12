@@ -30,7 +30,6 @@ public class History extends TAEntity {
   @Size(max = SIZE_255)
   public String note;
 
-  public Long adultId;
   public Integer height;
   public Integer weight;
 }

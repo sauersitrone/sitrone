@@ -13,9 +13,6 @@ import jakarta.validation.constraints.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Relative extends TAEntity {
 
-    @NotNull
-    public Long adultId;
-
     @NotBlank
     @NotEmpty
     @CsvBindByName

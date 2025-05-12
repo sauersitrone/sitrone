@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "HanniTasks")
-public class HanniTask extends TAEntity {
+public class HanniTask extends TAEntity implements UserDomain {
 
     // Hybrid Artificial Neural Network Integration
 

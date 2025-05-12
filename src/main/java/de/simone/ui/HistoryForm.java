@@ -35,7 +35,6 @@ public class HistoryForm extends TAForm<History> {
     mood.setReadOnly(!editable);
     height.setReadOnly(!editable);
     weight.setReadOnly(!editable);
-    entity.adultId = ((HistoriesView) taView).adultId;
     super.setEntity(entity);
   }
 }

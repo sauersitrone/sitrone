@@ -144,7 +144,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
                 LineAwesomeIcon.PILLS_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("EventsView"), EventsView.class,
                 LineAwesomeIcon.PLANE_ARRIVAL_SOLID.create()));
-        nav.addItem(new SideNavItem(getTranslation("RelativesView"), "Relatives/199268075270145",
+        nav.addItem(new SideNavItem(getTranslation("RelativesView"), RelativesView.class,
                 LineAwesomeIcon.PEOPLE_CARRY_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("MessaginProvidersView"), MessaginProvidersView.class,
                 LineAwesomeIcon.PAPER_PLANE.create()));
@@ -154,7 +154,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
                 LineAwesomeIcon.DOG_SOLID.create()));
         nav.addItem(new SideNavItem(getTranslation("TamagotchiChat"), TamagotchiChat.class,
                 LineAwesomeIcon.CAT_SOLID.create()));
-        nav.addItem(new SideNavItem(getTranslation("PrescriptionsView"), "Prescriptions/199268075270145",
+        nav.addItem(new SideNavItem(getTranslation("PrescriptionsView"), PrescriptionsView.class,
                 LineAwesomeIcon.PILLS_SOLID.create()));
         nav.addItem(
                 new SideNavItem("App bars", AppBarsView.class, LineAwesomeIcon.BARS_SOLID.create()));

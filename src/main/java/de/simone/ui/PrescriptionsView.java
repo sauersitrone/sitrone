@@ -1,28 +1,21 @@
 package de.simone.ui;
 
-import com.vaadin.flow.component.grid.ColumnTextAlign;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.function.SerializablePredicate;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.Route;
-import de.simone.MainLayout;
-import de.simone.UIUtils;
-import de.simone.backend.Prescription;
-import de.simone.backend.PrescriptionsService;
-import io.quarkus.panache.common.Parameters;
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.inject.Inject;
+import com.vaadin.flow.component.grid.*;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.data.renderer.*;
+import com.vaadin.flow.function.*;
+import com.vaadin.flow.router.*;
+
+import de.simone.*;
+import de.simone.backend.*;
+import jakarta.annotation.security.*;
+import jakarta.inject.*;
 
 @RolesAllowed({ "Sitrone.master", "Prescriptions" })
 @Route(value = "Prescriptions", layout = MainLayout.class)
 public class PrescriptionsView extends TAView<Prescription> {
 
     public static final String Prescription_ACTION = "action.Prescription";
-    protected Long adultId;
 
     @Inject
     PrescriptionsService prescriptionsService;
@@ -83,7 +76,6 @@ public class PrescriptionsView extends TAView<Prescription> {
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-        this.adultId = adultId;
         init(Prescription.class, PrescriptionForm.class, prescriptionsService);
 
         SerializablePredicate<Prescription> filter = entity -> {

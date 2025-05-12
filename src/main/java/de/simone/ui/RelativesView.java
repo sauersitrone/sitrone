@@ -16,7 +16,7 @@ import jakarta.inject.*;
 public class RelativesView extends TAView<Relative> {
 
     @Inject
-    RelativesService familiesService;
+    RelativesService relativesService;
 
     public RelativesView() {
         this.grid = UIUtils.getGrid(Relative.class);
@@ -61,7 +61,7 @@ public class RelativesView extends TAView<Relative> {
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-        init(Relative.class, RelativeForm.class, familiesService);
+        init(Relative.class, RelativeForm.class, relativesService);
 
         SerializablePredicate<Relative> filter = entity -> {
             String searchTerm = searchField.getValue().trim().toLowerCase().toLowerCase();
@@ -73,6 +73,6 @@ public class RelativesView extends TAView<Relative> {
 
             return m1 || m2;
         };
-        setItems(familiesService.listAll(), filter);
+        setItems(relativesService.listAll(), filter);
     }
 }

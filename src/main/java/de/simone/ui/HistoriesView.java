@@ -1,28 +1,22 @@
 package de.simone.ui;
 
-import com.vaadin.flow.component.grid.ColumnTextAlign;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.function.SerializablePredicate;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.Route;
-import de.simone.MainLayout;
-import de.simone.UIUtils;
-import de.simone.backend.HistoriesService;
-import de.simone.backend.History;
-import io.quarkus.panache.common.Parameters;
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.inject.Inject;
+import com.vaadin.flow.component.grid.*;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.data.renderer.*;
+import com.vaadin.flow.function.*;
+import com.vaadin.flow.router.*;
+
+import de.simone.*;
+import de.simone.backend.*;
+import io.quarkus.panache.common.*;
+import jakarta.annotation.security.*;
+import jakarta.inject.*;
 
 @RolesAllowed({"Sitrone.master", "Histories"})
 @Route(value = "Histories", layout = MainLayout.class)
 public class HistoriesView extends TAView<History> {
 
   public static final String HISTORY_ACTION = "action.history";
-  protected Long adultId;
 
   @Inject HistoriesService historiesService;
 
@@ -70,7 +64,6 @@ public class HistoriesView extends TAView<History> {
 
   @Override
   public void beforeEnter(BeforeEnterEvent event) {
-    this.adultId = adultId;
     init(History.class, HistoryForm.class, historiesService, false);
     setToolBarComponents(UIUtils.getToolBar(this));
     removeToolBarComponents(UIUtils.DUPLICATE_ACTION);
@@ -88,7 +81,7 @@ public class HistoriesView extends TAView<History> {
         };
 
     setItems(
-        historiesService.list("adultId = :adultId", Parameters.with("adultId", adultId)), filter);
+        historiesService.listAll(), filter);
   }
 
 }

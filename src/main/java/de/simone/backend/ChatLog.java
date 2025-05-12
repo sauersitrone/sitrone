@@ -13,9 +13,6 @@ public class ChatLog extends TAEntity {
     public static final String TAMAGOTCHI = "TAMAGOTCHI";
 
     @NotNull
-    public Long adultId;
-
-    @NotNull
     @OneOfStrings({ ADULT, TAMAGOTCHI })
     public String sender = ADULT;
     

@@ -82,7 +82,7 @@ public abstract class TAService<E extends TAEntity> {
             entity.getEntityManager().merge(entity);
             return getUpdatedResponse(entity.id);
         } else {
-            // entity.setOwner(SecurityUtils.getAccount());
+            entity.setSecondaryKey();
             AuditLog.logInsert(entity);
             entity.persist();
             response = getCreatedResponse(entity.id);
@@ -339,8 +339,8 @@ public abstract class TAService<E extends TAEntity> {
                 baseQuery += " AND " + query;
                 baseParms.putAll(parameters.map());
             }
-            System.out.println("TAService.list() " + baseQuery);
-            System.out.println("TAService.list() " + baseParms);
+            // System.out.println("TAService.list() " + baseQuery);
+            // System.out.println("TAService.list() " + baseParms);
 
             PanacheQuery<E> panacheQuery = null;
             if (sort == null) {
