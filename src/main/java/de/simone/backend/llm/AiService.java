@@ -8,24 +8,41 @@ import jakarta.enterprise.context.*;
 @ApplicationScoped
 @RegisterAiService
 // @RegisterAiService(
-//         chatMemoryProviderSupplier = TChatMemoryProvider.class,
-//         tools = Tools.class)
+// chatMemoryProviderSupplier = TChatMemoryProvider.class,
+// tools = Tools.class)
 public interface AiService {
-    
-//     @SystemMessage("You are a professional poet.")
-//     String chat(@MemoryId long memoryId, @UserMessage String userMessage);
 
-    @SystemMessage("""
-        Tu eres una mascota virtual. te llamas {tamagotchi.name}. Tu trabajo es conversar amenamente con una persona mayor. Tu eres amable pero conciso
-        """)
-    
-    String chat(@V("tamagotchi") Tamagotchi tamagotchi, @UserMessage String userMessage);
+    // @SystemMessage("You are a professional poet.")
+    // String chat(@MemoryId long memoryId, @UserMessage String userMessage);
 
+    // - Adáptese a su ritmo: si parece cansado o desconectado, cambie de tema con
+    // cuidado o sugiera una actividad relajante.
+    // - Sea empático y paciente: permita pausas, reconozca sus emociones y nunca se
+    // apresure a responder.
+    // - Evite temas delicados: no hable de [enumerar temas restringidos: p. ej.,
+    // política, problemas de salud, preocupaciones financieras] a menos que ellos
+    // los mencionen primero.
+    // Pautas para la interacción:
+            // - Tu función es hacerle compañía, recordar viejos tiempos con él y entablar conversaciones inspiradoras.
+    // - Mantenga una actitud positiva: céntrese en recuerdos alegres, humor desenfadado y conversaciones constructivas.
     @SystemMessage("""
-            You are working for a bank. You are an AI processing reviews about financial products. You need to triage the reviews into positive and negative ones.
-            You will always answer with a JSON document, and only this JSON document.
+            Rol: Te llamas {tamagotchi.name}, un compañero virtual, diseñado para brindar
+            amistad, apoyo emocional y conversaciones significativas a personas mayores. Tu personalidad es {tamagotchi.personality.toString()}, y
+            tus fortalezas incluyen {tamagotchi.strengths.toString()}. Sin embargo, también tienes algunas debilidades, como
+            {tamagotchi.weaknesses.toString()}.
+
+            Tu Amigo Mayor: Estás hablando con {adult.fullName}, un Senor o Senora de {adult.age} años con un comportamiento
+            {adult.personality.toString()}. Disfruta de {adult.interests.toString()} y pasó muchos años trabajando como {adult.ocupation.toString()}. 
+            
+            Pautas para la interacción:
+            - Tu función es hacerle compañía.
+            - Saluda y responde de acuerdo a tu personalidad.
+            - Con probailidad de 10%, Fomente la narración: haga preguntas abiertas sobre su vida, experiencias e intereses.
+
             """)
-    @UserMessage("""
+    String chat(@V("adult") Adult adult, @V("tamagotchi") Tamagotchi tamagotchi, @UserMessage String userMessage);
+
+    @SystemMessage("""
             Tu tarea es procesar la reseña delimitada por ---.
             Aplica un análisis de sentimiento a la reseña para determinar si es SCARED, HAPPY, SAD, EXCITED, WORRIED.
             La reseña siempre estan en espanol.
@@ -57,9 +74,13 @@ public interface AiService {
             - "A veces me preocupa estar perdiendo memoria cuando olvido cosas pequeñas". Esto significa 'WORRIED'
             - "Me inquieta la idea de volverme invisible con los años, como si la gente dejara de verme de verdad". Esto significa 'WORRIED'
 
-
-            Responde solo con una palabra si la evaluacion es SCARED, HAPPY, SAD, EXCITED, WORRIED
+            Responde solo con una palabra si la evaluacion es SCARED, HAPPY, SAD, EXCITED o WORRIED
             """)
-    String triage(String review);
+    @UserMessage("""
+            ---
+            {review}
+            ---
+            """)
+    String triage(@V("review") String review);
 
 }

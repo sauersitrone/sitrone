@@ -83,7 +83,7 @@ public class TamagotchiChat extends HorizontalLayout
     }
 
     private void sendMessage(String message) {
-        String answ = chatLogsService.sendMessage(tamagotchi, message);
+        String answ = chatLogsService.sendMessage(adult, tamagotchi, message);
         paragraph.setText(answ);
     }
 

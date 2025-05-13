@@ -1,6 +1,7 @@
 package de.simone.backend;
 
 import java.time.*;
+import java.time.temporal.*;
 import java.util.*;
 
 import jakarta.persistence.*;
@@ -85,4 +86,11 @@ public class Adult extends TAEntity implements UserDomain {
     public String getFullName() {
         return Address.getFullName(firstName, lastName);
     }
+
+    public Integer getAge() {
+        LocalDate now = LocalDate.now();
+        long years = ChronoUnit.YEARS.between(birdthDate, now);
+        return Integer.valueOf("" + years);
+    }
+
 }

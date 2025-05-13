@@ -23,15 +23,14 @@ public class ChatLogsService extends TAService<ChatLog> {
     }
 
     @Transactional
-    public String sendMessage(Tamagotchi tamagotchi, String message) {
+    public String sendMessage(Adult adult, Tamagotchi tamagotchi, String message) {
         ChatLog log = new ChatLog();
         log.setSecondaryKey();
         log.message = message;
         log.sender = ChatLog.ADULT;
         ChatLog.getEntityManager().persist(log);
 
-        System.out.println("ChatLogsService.sendMessage() " + message);
-        String anwer = aiService.chat(tamagotchi, message);
+        String anwer = aiService.chat(adult, tamagotchi, message);
         ChatLog log2 = new ChatLog();
         log2.setSecondaryKey();
         log2.message = anwer;
