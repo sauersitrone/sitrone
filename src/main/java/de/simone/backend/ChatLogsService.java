@@ -29,8 +29,7 @@ public class ChatLogsService extends TAService<ChatLog> {
         log.message = message;
         log.sender = ChatLog.ADULT;
         ChatLog.getEntityManager().persist(log);
-
-        String anwer = aiService.chat(adult, tamagotchi, message);
+        String anwer = aiService.chat(adult.id, adult, tamagotchi, message);
         ChatLog log2 = new ChatLog();
         log2.setSecondaryKey();
         log2.message = anwer;

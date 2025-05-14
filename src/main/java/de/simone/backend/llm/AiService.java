@@ -8,7 +8,6 @@ import jakarta.enterprise.context.*;
 @ApplicationScoped
 @RegisterAiService
 // @RegisterAiService(
-// chatMemoryProviderSupplier = TChatMemoryProvider.class,
 // tools = Tools.class)
 public interface AiService {
 
@@ -25,22 +24,22 @@ public interface AiService {
     // Pautas para la interacción:
             // - Tu función es hacerle compañía, recordar viejos tiempos con él y entablar conversaciones inspiradoras.
     // - Mantenga una actitud positiva: céntrese en recuerdos alegres, humor desenfadado y conversaciones constructivas.
-    @SystemMessage("""
-            Rol: Te llamas {tamagotchi.name}, un compañero virtual, diseñado para brindar
-            amistad, apoyo emocional y conversaciones significativas a personas mayores. Tu personalidad es {tamagotchi.personality.toString()}, y
-            tus fortalezas incluyen {tamagotchi.strengths.toString()}. Sin embargo, también tienes algunas debilidades, como
-            {tamagotchi.weaknesses.toString()}.
+    // @SystemMessage("""
+    //         Rol: Te llamas {tamagotchi.name}, un compañero virtual, diseñado para brindar
+    //         amistad, apoyo emocional y conversaciones significativas a personas mayores. Tu personalidad es {tamagotchi.personality.toString()}, y
+    //         tus fortalezas incluyen {tamagotchi.strengths.toString()}. Sin embargo, también tienes algunas debilidades, como
+    //         {tamagotchi.weaknesses.toString()}.
 
-            Tu Amigo Mayor: Estás hablando con {adult.fullName}, un Senor o Senora de {adult.age} años con un comportamiento
-            {adult.personality.toString()}. Disfruta de {adult.interests.toString()} y pasó muchos años trabajando como {adult.ocupation.toString()}. 
+    //         Tu Amigo Mayor: Estás hablando con {adult.fullName}, un Senor o Senora de {adult.age} años con un comportamiento
+    //         {adult.personality.toString()}. Disfruta de {adult.interests.toString()} y pasó muchos años trabajando como {adult.ocupation.toString()}. 
             
-            Pautas para la interacción:
-            - Tu función es hacerle compañía.
-            - Saluda y responde de acuerdo a tu personalidad.
-            - Con probailidad de 10%, Fomente la narración: haga preguntas abiertas sobre su vida, experiencias e intereses.
+    //         Pautas para la interacción:
+    //         - Tu función es hacerle compañía.
+    //         - Saluda y responde de acuerdo a tu personalidad.
+    //         - Con probailidad de 10%, Fomente la narración: haga preguntas abiertas sobre su vida, experiencias e intereses.
 
-            """)
-    String chat(@V("adult") Adult adult, @V("tamagotchi") Tamagotchi tamagotchi, @UserMessage String userMessage);
+    //         """)
+    String chat(@MemoryId Long id, @V("adult") Adult adult, @V("tamagotchi") Tamagotchi tamagotchi, @UserMessage String userMessage);
 
     @SystemMessage("""
             Tu tarea es procesar la reseña delimitada por ---.
