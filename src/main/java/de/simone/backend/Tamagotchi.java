@@ -3,12 +3,9 @@ package de.simone.backend;
 import java.time.*;
 import java.util.*;
 
-import com.opencsv.bean.*;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-// propertyPath=weaknesses, propertyPath=personality, propertyPath=strengths
 @Entity
 @Table(name = "Tamagotchies")
 public class Tamagotchi extends TAEntity {
@@ -58,7 +55,6 @@ public class Tamagotchi extends TAEntity {
     @NotEmpty
     @ElementCollection(fetch = FetchType.EAGER)
     public Set<String> weaknesses = new HashSet<>();
-
 
     // @NotNull
     public String avatar;
@@ -261,4 +257,25 @@ public class Tamagotchi extends TAEntity {
         if (System.currentTimeMillis() - lastAction > secs)
             Tamagotchi.getEntityManager().merge(this);
     }
+
+    /**
+     * Qute interface
+     * 
+     */
+    public String getEmbeddedAvatar() {
+        return super.getImage(avatar);
+    }
+
+    public String getPersonalityValues() {
+        return geListOfValues("tamagotchi.personality", personality);
+    }
+
+    public String getStrengthsValues() {
+        return geListOfValues("tamagotchi.strengths", strengths);
+    }
+
+    public String getWeaknessesValues() {
+        return geListOfValues("tamagotchi.weaknesses", weaknesses);
+    }
+
 }

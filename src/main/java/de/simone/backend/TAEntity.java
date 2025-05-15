@@ -2,6 +2,7 @@ package de.simone.backend;
 
 import java.time.*;
 import java.util.*;
+import java.util.stream.*;
 
 import org.hibernate.annotations.*;
 
@@ -148,6 +149,12 @@ public abstract class TAEntity extends PanacheEntityBase implements Comparable<T
 
     public boolean isNewEntity() {
         return id == null;
+    }
+
+        protected String geListOfValues(String group, Set<String> set) {
+        String string = set.stream().map(item -> TranslationProvider.getString(group, item))
+                .collect(Collectors.joining(","));
+        return string;
     }
 
     protected static Map<String, String> getMap(String source) {

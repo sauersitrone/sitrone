@@ -31,7 +31,7 @@ public class DBChatMemoryStore implements ChatMemoryStore {
             : message;
             
             if (message == null)
-            throw new NullPointerException("TChatMemoryProvidergetMessages(...) method found anull message.");
+            throw new NullPointerException("TChatMemoryProvidergetMessages(...) method found a null message.");
             
             chatMessages2.add(message);
         }

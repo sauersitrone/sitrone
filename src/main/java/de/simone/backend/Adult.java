@@ -4,6 +4,8 @@ import java.time.*;
 import java.time.temporal.*;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.*;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import net.andreinc.jbvext.annotations.misc.*;
@@ -91,6 +93,29 @@ public class Adult extends TAEntity implements UserDomain {
         LocalDate now = LocalDate.now();
         long years = ChronoUnit.YEARS.between(birdthDate, now);
         return Integer.valueOf("" + years);
+    }
+
+        /**
+     * Qute interface
+     * 
+     * @return - the mime/image
+     */
+    @JsonIgnore
+    public String getEmbeddedPicture() {
+        return super.getImage(picture);
+    }
+
+    
+    public String getPersonalityValues() {
+        return geListOfValues("person.personality", personality);
+    }
+
+    public String getInterestsValues() {
+        return geListOfValues("person.interests", interests);
+    }
+
+    public String getOcupationValues() {
+        return geListOfValues("person.ocupation", ocupation);
     }
 
 }

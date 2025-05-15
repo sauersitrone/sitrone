@@ -1,55 +1,24 @@
 package de.simone.backend;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.*;
 
-import de.simone.TranslationProvider;
-import io.quarkus.mailer.Mail;
-import io.quarkus.mailer.Mailer;
-import io.quarkus.qute.Qute;
-import io.quarkus.qute.TemplateException;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
+import de.simone.*;
+import io.quarkus.mailer.*;
+import io.quarkus.qute.*;
+import jakarta.enterprise.context.*;
+import jakarta.inject.*;
+import jakarta.ws.rs.core.*;
 
 @ApplicationScoped
-public class MailingsService extends TAService<Mailing> {
+public class QuteUtils {
 
-        @Inject
+    @Inject
     Mailer mailer;
 
-    public MailingsService() {
-        super(Mailing.class);
-    }
-
-    public Map<String, String> getSubjectVariables(String audience) {
-            return getEntitiesVariables(new User());
-    }
-
-    public Map<String, String> getBodyVariables(String audience) {
-            return getEntitiesVariables(new User());
-    }
-
-    @Override
-    public Mailing get(Long id) throws WebApplicationException {
-        return getImpl(id);
-    }
-
-    @Override
-    @Transactional
-    public Response delete(Long id) {
-        return deleteImpl(id);
-    }
-
-    public Response checkQuteTemplate(String template) {
-        Response response = getOkResponse("Response.qute", "msg", "Qute template Ok");
+    public static Response checkQuteTemplate(String template) {
+        Response response = TAService.getOkResponse("Response.qute", "msg", "Qute template Ok");
         // silent ignore null template
         if (template == null)
             return response;
@@ -60,49 +29,13 @@ public class MailingsService extends TAService<Mailing> {
             // but with no variables, (template is ok but qute cna.t render without
             // entities) there is no message that means: no message -> template is ok
             if (e.getMessage() != null)
-                response = getBadRequestResponse("Response.qute", "msg", e.getMessage());
+                response = TAService.getBadRequestResponse("Response.qute", "msg", e.getMessage());
         }
         return response;
     }
 
-    @Override
-    @Transactional
-    public Response save(Mailing entity) {
-        // check qute template
-        Response response = checkQuteTemplate(entity.message);
-        if (response.getStatus() != Response.Status.OK.getStatusCode())
-            return response;
-        response = checkQuteTemplate(entity.subject);
-        if (response.getStatus() != Response.Status.OK.getStatusCode())
-            return response;
-
-        return saveImpl(entity);
-    }
-
-    /**
-     * 
-     * @param mailing   - the {@link Mailing} entity to prepare
-     * @param variables - a map with initial variable-value list to insert or
-     *                  null
-     * @param entities  - a list of {@link TAEntity} to be used as source for
-     *                  variable sustitution
-     * @return
-     */
-    public static Mail prepareMail(Mailing mailing, Map<String, Object> variables, TAEntity... entities) {
+    public static Mail prepareMail(Mailing mailing, String to, TAEntity... entities) {
         Map<String, Object> varsMap = getVariableMap(entities);
-        if (variables != null)
-            varsMap.putAll(variables);
-
-        String to = "";
-        if (Mailing.INTERNAL.equals(mailing.audience)) {
-            Object entity = varsMap.get(User.class.getSimpleName());
-            if (entity != null) {
-                User user = (User) entity;
-                to = user.lastName + ", " + user.firstName + "<" + user.email + ">";
-            }
-        } else {
-                // to = donation.lastName + ", " + donation.firstName + "<" + donation.email + ">";
-        }
 
         String subject = formatText(mailing.subject, varsMap);
         String body = formatText(mailing.message, varsMap);
@@ -122,13 +55,17 @@ public class MailingsService extends TAService<Mailing> {
             return "";
 
         String text = "*** Error in template rendering";
-        try {            
+        try {
             text = Qute.fmt(template, varsMap);
         } catch (Exception e) {
             e.printStackTrace();
             text = ExceptionUtils.getRootCauseMessage(e);
         }
         return text;
+    }
+
+    public static String formatText(String template, TAEntity... entities) {
+        return formatText(template, getVariableMap(entities));
     }
 
     public static Map<String, Object> getVariableMap(TAEntity... entities) {
@@ -142,28 +79,10 @@ public class MailingsService extends TAService<Mailing> {
         return varsMap;
     }
 
-    public static String formatText(String template, TAEntity... entities) {
-        return formatText(template, getVariableMap(entities));
-    }
-
-    /**
-     * return a {@link Map} of all field inside of the entites passes as
-     * argument. this method autometic add the variables declared in
-     * {@link GlobalProperty} file
-     * 
-     * @param forSelection - true return the varable name to be used within mail
-     *                     template ${variableName}. false return only the
-     *                     variableName
-     * @param entities     - list of entities to retrive the variables from
-     * @return
-     */
     public Map<String, String> getEntitiesVariables(boolean withBrakets, TAEntity... entities) {
         Map<String, String> vars = new TreeMap<>();
         for (TAEntity entity : entities) {
             vars.putAll(getEntityVariables(entity));
-            // add the related variable
-            String prefix = entity.getClass().getSimpleName() + ".";
-            addRelatedVariables(prefix, vars);
         }
         // set the key as variable pattern
         Map<String, String> vars2 = new TreeMap<>();
@@ -176,17 +95,16 @@ public class MailingsService extends TAService<Mailing> {
     }
 
     /**
-     * add to the list all related variables with the given prefix. the related
-     * variables are aditional variables not found in the asociated entity but in
-     * ...
+     * main entry point to send emails.
      * 
-     * @param prefix - prefix of the global property
-     * @param toList - list to append the variables
+     * @param mailing  - the Mailing element to send
+     * @param entities - the entities used to fill all information inside the email
+     * @return - response
      */
-    private void addRelatedVariables(String prefix, Map<String, String> toList) {
-        // TODO: not implemented jet. i need to create a related file subsistem for
-        // aditionals variables not found in original entities. this will be needed as
-        // par of cusomization / aditional requeriment of client with spetias needs
+    public Response sendMail(Mailing mailing, TAEntity... entities) {
+        Mail mail = MailingsService.prepareMail(mailing, null, entities);
+        mailer.send(mail);
+        return TAService.getOkResponse("Response.email.sent", "mailing", mailing.mailingName);
     }
 
     @SuppressWarnings("java:S1192") // copy and paste the entity name is more visual for me
@@ -221,20 +139,6 @@ public class MailingsService extends TAService<Mailing> {
         return variables;
     }
 
-    
-    /**
-     * main entry point to send emails.
-     * 
-     * @param mailing  - the Mailing element to send
-     * @param entities - the entities used to fill all information inside the email
-     * @return - response
-     */
-    public Response sendMail(Mailing mailing, TAEntity... entities) {
-        Mail mail = MailingsService.prepareMail(mailing, null, entities);
-        mailer.send(mail);
-        return getOkResponse("Response.email.sent", "mailing", mailing.mailingName);
-    }
-
     private Map<String, String> getBankAccountVariables(String variableName) {
         Map<String, String> variables = new TreeMap<>();
         variables.put(variableName + ".bankName", TranslationProvider.getTranslation("BankAccount.bankName"));
@@ -252,20 +156,31 @@ public class MailingsService extends TAService<Mailing> {
         Map<String, String> variables = new TreeMap<>();
         if (entity instanceof User) {
             variables.putAll(MiscellaneousService.getEntityFields(User.class, true));
-            variables.put("User.embeddedAvatar", TranslationProvider.getTranslation("User.avatar"));
+            variables.put("User.embeddedAvatar", TranslationProvider.getTranslation("Person.avatar"));
 
             variables.remove("User.password");
             variables.remove("User.sessionId");
             variables.remove("User.userSecret");
         }
 
+        if (entity instanceof Adult) {
+            variables.putAll(MiscellaneousService.getEntityFields(Adult.class, true));
+            variables.put("Person.fullName", TranslationProvider.getTranslation("Person.fullName"));
+            variables.put("Person.age", TranslationProvider.getTranslation("Person.age"));
+            variables.put("Person.embeddedPicture", TranslationProvider.getTranslation("Person.picture"));
+            variables.put("Person.personalityValues", TranslationProvider.getTranslation("Person.personality"));
+            variables.put("Person.interestsValues", TranslationProvider.getTranslation("Person.interests"));
+            variables.put("Person.ocupationValues", TranslationProvider.getTranslation("Person.ocupation"));
+        }
+
+        if (entity instanceof Tamagotchi) {
+            variables.putAll(MiscellaneousService.getEntityFields(Tamagotchi.class, true));
+            variables.put("Tamagotchi.embeddedAvatar", TranslationProvider.getTranslation("Person.avatar"));
+            variables.put("Tamagotchi.personalityValues", TranslationProvider.getTranslation("Tamagotchi.personality"));
+            variables.put("Tamagotchi.strengthsValues", TranslationProvider.getTranslation("Tamagotchi.strengths"));
+            variables.put("Tamagotchi.weaknessesValues", TranslationProvider.getTranslation("Tamagotchi.weaknesses"));
+        }
+
         return variables;
     }
-
-    @Override
-    @Transactional
-    public Response duplicate(Long id) {
-        return duplicateImpl(id);
-    }
-
 }
