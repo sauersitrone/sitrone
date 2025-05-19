@@ -3,6 +3,7 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
+    "@f0rce/ace-widget": "1.0.2",
     "@gl0b3/materialicons": "3.0.2",
     "@polymer/polymer": "3.5.2",
     "@vaadin-component-factory/vcf-nav": "1.0.6",
@@ -46,6 +47,7 @@
   },
   "vaadin": {
     "dependencies": {
+      "@f0rce/ace-widget": "1.0.2",
       "@gl0b3/materialicons": "3.0.2",
       "@polymer/polymer": "3.5.2",
       "@vaadin-component-factory/vcf-nav": "1.0.6",
@@ -87,7 +89,7 @@
       "workbox-core": "7.3.0",
       "workbox-precaching": "7.3.0"
     },
-    "hash": "b58e2b4064c404825d82e3485a38f36296c9dc429bcff3d1c923d5589a884ffd"
+    "hash": "7f0a28111328f9f8102be4200e0ff4335cecfa0b59f7b662d1e21b9b22bdf79a"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -108,6 +110,7 @@
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
     "three": "$three",
-    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles"
+    "@vaadin/vaadin-material-styles": "$@vaadin/vaadin-material-styles",
+    "@f0rce/ace-widget": "$@f0rce/ace-widget"
   }
 }
