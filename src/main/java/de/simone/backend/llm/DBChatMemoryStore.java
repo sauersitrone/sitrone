@@ -5,6 +5,7 @@ import java.util.*;
 import de.simone.backend.*;
 import dev.langchain4j.data.message.*;
 import dev.langchain4j.store.memory.chat.*;
+import io.quarkus.panache.common.*;
 import jakarta.enterprise.context.*;
 import jakarta.transaction.*;
 
@@ -16,7 +17,7 @@ public class DBChatMemoryStore implements ChatMemoryStore {
     @Override
     public List<ChatMessage> getMessages(Object memoryId) {
         Long sKey = Long.parseLong(memoryId.toString());
-        List<LlmChatMessage> chatMessages = LlmChatMessage.list("secondaryKey = ?1", sKey);
+        List<LlmChatMessage> chatMessages = LlmChatMessage.list("secondaryKey = ?1", Sort.ascending("id"), sKey);
         List<ChatMessage> chatMessages2 = new ArrayList<>();
         for (LlmChatMessage LlmChatMessage : chatMessages) {
             ChatMessage message = null;

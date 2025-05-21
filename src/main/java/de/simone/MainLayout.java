@@ -136,6 +136,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, Proper
 
     private SideNav createComponentNavigation() {
         SideNav nav = new SideNav("Components");
+        nav.addItem(new SideNavItem(getTranslation("SauerDashBoard"), SauerDashBoard.class, LineAwesomeIcon.DASHCUBE.create()));
         nav.addItem(new SideNavItem(getTranslation("UsersView"), UsersView.class,
                 LineAwesomeIcon.USER.create()));
         nav.addItem(new SideNavItem(getTranslation("AdultsView"), AdultsView.class,

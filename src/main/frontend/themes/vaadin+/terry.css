@@ -1,0 +1,7 @@
+
+
+.hover-bg-border:hover {
+  background-color: var(--lumo-primary-color-10pct);
+  border-color: var(--lumo-primary-color);
+  cursor: pointer;
+}

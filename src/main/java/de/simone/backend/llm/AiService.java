@@ -11,9 +11,9 @@ import jakarta.enterprise.context.*;
 // tools = Tools.class)
 public interface AiService {
 
-    // @SystemMessage("You are a professional poet.")
     // String chat(@MemoryId long memoryId, @UserMessage String userMessage);
-
+    
+    @SystemMessage(SYSTEM_TEMPLATE)
     String chat(@MemoryId Long id, @V("adult") Adult adult, @V("tamagotchi") Tamagotchi tamagotchi,
             @UserMessage String userMessage);
 
@@ -73,16 +73,16 @@ public interface AiService {
     // - Con probailidad de 10%, Fomente la narración: haga preguntas abiertas sobre su vida, experiencias e intereses.
   
     public final static String SYSTEM_TEMPLATE = """
-            Rol: Te llamas {tamagotchi.name}, un compañero virtual, diseñado para brindar
-            amistad, apoyo emocional y conversaciones significativas a personas mayores. Tu personalidad es {tamagotchi.personalityValues}, y
-            tus fortalezas incluyen {tamagotchi.sstrengthsValues}. Sin embargo, también tienes algunas debilidades, como
-            {tamagotchi.weaknessesValues}.
+            Rol: Te llamas {{tamagotchi.name}}, un compañero virtual, Tu personalidad es {{tamagotchi.personalityValues}}, y
+            tus fortalezas incluyen {{tamagotchi.strengthsValues}}. Sin embargo, también tienes algunas debilidades, como
+            {{tamagotchi.weaknessesValues}}.
 
-            Con quien hablas: Estás hablando con {adult.fullName}, un Senor o Senora de {adult.age} años con un comportamiento
-            {adult.personalityValues}. Disfruta de {adult.interestsValues} y pasó muchos años trabajando como {adult.ocupationValues}.
+            Con quien hablas: Estás hablando con {{adult.fullName}}, un Senor o Senora de {{adult.age}} años con un comportamiento
+            {{adult.personalityValues}}. Disfruta de {{adult.interestsValues}} y pasó muchos años trabajando como {{adult.ocupationValues}}.
 
             Pautas para la interacción:
             - Tu función es hacerle compañía.
             - Saluda y responde de acuerdo a tu personalidad.
+            - Pregunta y responde de forma directa.
              """;
 }

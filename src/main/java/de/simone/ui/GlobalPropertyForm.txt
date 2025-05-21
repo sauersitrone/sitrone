@@ -1,0 +1,97 @@
+package de.simone.ui;
+
+import java.util.List;
+
+import com.oracle.svm.core.annotate.*;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.BigDecimalField;
+import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.Route;
+
+import de.simone.*;
+import de.simone.backend.*;
+import io.quarkus.panache.common.Parameters;
+import io.quarkus.panache.common.Sort;
+import jakarta.annotation.security.*;
+
+@RolesAllowed({ "Sitrone.master" })
+@Route(value = "GlobalProperties", layout = MainLayout.class)
+public class GlobalPropertyForm extends TAForm<GlobalProperty> implements BeforeEnterObserver {
+
+    private TextField appDescription;
+    private TextField appName;
+    private EmailField appEmail;
+    private IntegerField minPasswortLength;
+    private IntegerField maxFailAttempts;
+    private Checkbox disableUserRegistration;
+    private Checkbox forgotPassword;
+    private Checkbox disableAccountRegistration;
+    private Checkbox maintainanceModeActive;
+    private Select<Mailing> confirmationCodeEmail;
+    private Select<Mailing> inviteUserEmail;
+    private BigDecimalField costPerDonationInPercent;
+    private BigDecimalField costPerPetitionInCent;
+
+    @Inject
+    GlobalPropertiesService globalPropertiesService;
+
+    public GlobalPropertyForm() {
+
+        appDescription = UIUtils.getTextField("GlobalProperty.appDescription", true, false);
+        appName = UIUtils.getTextField("GlobalProperty.appName", true, false);
+        appEmail = UIUtils.getEmailField("GlobalProperty.appEmail", true, false);
+
+        minPasswortLength = UIUtils
+                .getStepperIntegerField("GlobalProperty.minPasswordLength", true, 4, 10, 1);
+        maxFailAttempts = UIUtils
+                .getStepperIntegerField("GlobalProperty.maxFailAttempts", true, 3, 10, 1);
+        disableUserRegistration = UIUtils.getCheckbox("GlobalProperty.disableUserRegistration");
+        VerticalLayout disableUserRegistrationWrap = UIUtils.getWrapForCheckBox(disableUserRegistration);
+        forgotPassword = UIUtils.getCheckbox("GlobalProperty.forgotPassword");
+        VerticalLayout forgotPasswordWrap = UIUtils.getWrapForCheckBox(forgotPassword);
+        disableAccountRegistration = UIUtils.getCheckbox("GlobalProperty.disableAccountRegistration");
+        VerticalLayout disableAccountRegistrationWrap = UIUtils.getWrapForCheckBox(disableAccountRegistration);
+        maintainanceModeActive = UIUtils.getCheckbox("GlobalProperty.maintainanceModeActive");
+        VerticalLayout maintainanceModeActiveWrap = UIUtils.getWrapForCheckBox(maintainanceModeActive);
+        // externalTOTPLifeSpan = new DurationField("GlobalProperty.externalTOTPLifeSpan", true);
+        // accessTokeLifeSpan = new DurationField("GlobalProperty.accessTokeLifeSpan", true);
+        // loginActionTimeout = new DurationField("GlobalProperty.loginActionTimeout", true);
+        confirmationCodeEmail = UIUtils.getMailingSelect("GlobalProperty.confirmationCodeEmail", true, null);
+        inviteUserEmail = UIUtils.getMailingSelect("GlobalProperty.inviteUserEmail", true, null);
+        costPerDonationInPercent = UIUtils.getBigDecimalField("GlobalProperty.costPerDonationInPercent", false, false);
+        costPerPetitionInCent = UIUtils.getBigDecimalField("GlobalProperty.costPerPetitionInCent", false, false);
+
+        GroupPanel sep4 = new GroupPanel("globalProperty.separator4", costPerDonationInPercent,
+                costPerPetitionInCent);
+        GroupPanel sep5 = new GroupPanel("globalProperty.separator5", appName, appDescription, appEmail);
+        GroupPanel sep7 = new GroupPanel("globalProperty.separator7",minPasswortLength, maxFailAttempts, new Span(), loginActionTimeout,
+                disableUserRegistrationWrap, forgotPasswordWrap, disableAccountRegistrationWrap, maintainanceModeActiveWrap);
+        GroupPanel sep8 = new GroupPanel("globalProperty.separator8", externalTOTPLifeSpan, accessTokeLifeSpan,
+                loginActionTimeout);
+        GroupPanel sep9 = new GroupPanel("globalProperty.separator9", confirmationCodeEmail, inviteUserEmail);
+
+        setBody(sep4, sep5, sep7, sep8, sep9);
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        init(GlobalProperty.class, Home.class, globalPropertiesService);
+        List<Component> buttons = UIUtils.getCRUDButtons(this, UIUtils.UPDATE_FORM);
+        setFooterComponents(buttons);
+        GlobalProperty entity = GlobalProperty.getInstance();
+        // List<Message> mailings = mailingsService.list("audience = :audience", Sort.ascending("messageName"),
+        //         Parameters.with("audience", Message.INTERNAL));
+        // confirmationCodeEmail.setItems(mailings);
+        // inviteUserEmail.setItems(mailings);
+        setEntity(entity);
+    }
+
+}
